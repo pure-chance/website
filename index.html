@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>pure-chance</title>
+        <meta name="description" content="A record of thoughts by @pure-chance." />
+        <meta name="canonical" content="https://pure-chance.xyz" />
+        <meta
+            name="alternative"
+            type="application/rss+xml"
+            content="https://pure-chance.xyz/rss.xml"
+        />
+        <link rel="icon" type="image/x-icon" href="/public/favicon.svg" />
+        <link rel="stylesheet" href="/main.css" />
+        <style>
+            /*
+                The current method of cutting off the titles when the window is narrow
+                is not ideal. But it is sufficient for now.
+            */
+
+            ol {
+                padding: 0;
+                list-style: none;
+                margin-top: var(--space-md);
+                margin-bottom: var(--space-md);
+            }
+
+            li.entry {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            li.entry a {
+                font-style: italic;
+                text-decoration: none;
+                color: var(--text);
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            li.entry hr {
+                all: unset;
+                display: block;
+                flex: 1;
+                border-top: 1px solid var(--rule);
+                margin: 0 0.5rem;
+            }
+
+            time {
+                font-family: var(--font-family-mono);
+                font-size: var(--text-size-mono-sm);
+                color: var(--muted);
+                letter-spacing: -0.02em;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+
+            .feed {
+                font-family: var(--font-family-mono);
+                font-size: var(--text-size-mono-sm);
+                color: var(--muted);
+                text-align: right;
+            }
+        </style>
+    </head>
+    <body>
+        <main>
+            <header>
+                <p id="kicker" aria-hidden="true">archive</p>
+                <h1 id="title">@pure-chance</h1>
+            </header>
+            <hr />
+            <p>A record of thoughts by @pure-chance.</p>
+            <ol reversed aria-label="Articles">
+                <li class="entry">
+                    <a href="/writing/optimally-bad-wordle/">Optimally Bad Wordle</a>
+                    <hr class="median" />
+                    <time datetime="2025-11-06">Nov 06, 2025</time>
+                </li>
+                <li class="entry">
+                    <a href="/writing/iconography-of-an-apocalypse/"
+                        >Iconography of an Apocalypse</a
+                    >
+                    <hr class="median" />
+                    <time datetime="2024-12-16">Dec 12, 2024</time>
+                </li>
+                <li class="entry">
+                    <a href="/writing/youtube-metacommentary-and-authenticity/"
+                        >YouTube Metacommentary and Authenticity</a
+                    >
+                    <hr class="median" />
+                    <time datetime="2024-06-6">May 06, 2024</time>
+                </li>
+            </ol>
+            <p class="feed">RSS feed at <a href="/rss.xml">rss.xml</a></p>
+        </main>
+        <footer>
+            <span id="locus">@pure-chance</span>
+            <a href="/about" class="endnotes"><sup>†</sup>about</a>
+            <a href="/resources" class="endnotes"><sup>‡</sup>resources</a>
+        </footer>
+    </body>
+</html>

@@ -1,5 +1,1 @@
-dist/
-drafts/
-node_modules/
 .vercel
-.env*.local

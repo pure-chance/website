@@ -1,7 +1,5 @@
 {
-  "outputDirectory": "dist",
-  "buildCommand": "npm run build",
+  "buildCommand": null,
   "framework": null,
-  "cleanUrls": true,
-  "trailingSlash": false
+  "outputDirectory": "dist"
 }
