@@ -1,3 +1,5 @@
+@layer reset, base, layout, elements;
+
 /* RESET */
 @layer reset {
     /* 1. Use a more-intuitive box-sizing model */
@@ -81,12 +83,14 @@
         /* Colors */
         --ink: #17160f;
         --paper: #f2f0ef;
+        --wash: #e8e4df;
         --muted: #706a5a;
         --accent: #a70e16;
-        --rule: #dbd6cc;
+        --rule: #cbc5ba;
 
         /* Layout */
         --width: 640px;
+        --overhang: 3rem;
 
         /* Spacing rhythm (multiples of ~0.25rem) */
         --space-xs: 0.25rem;
@@ -96,29 +100,18 @@
         --space-xl: 2.4rem;
         --space-2xl: 4.5rem;
 
-        /* Typography font families */
+        /* Typography */
         --font-family-serif: "EB Garamond", "Garamond", serif;
         --font-family-mono: "Maple Mono", monospace;
+        --font-size-base: 13pt;
+        --font-size-sm: 10pt;
+        --font-size-mono: 0.82rem;
+        --font-size-code: 0.78rem;
+        --font-size-mono-sm: 0.68rem;
 
-        /* Typography scale */
-        --text-size-base: 13pt;
-        --text-size-mono: 0.82rem;
-        --text-size-mono-sm: 0.68rem;
-
-        /* Footer */
+        /* Chrome */
         --footer-height: 2rem;
         --footer-displacement-width: clamp(1.2rem, 5vw, 2rem);
-    }
-}
-
-/* DOCUMENT STRUCTURE */
-@layer base {
-    body {
-        max-width: var(--width);
-        margin: 0 auto;
-        padding: 3rem var(--footer-displacement-width) calc(3rem + var(--footer-height));
-        background-color: var(--paper);
-        color: var(--ink);
     }
 }
 
@@ -173,11 +166,22 @@
     }
 }
 
-/* TYPOGRAPHY */
+/* DOCUMENT */
+@layer base {
+    body {
+        max-width: var(--width);
+        margin: 0 auto;
+        padding: 3rem var(--footer-displacement-width) calc(3rem + var(--footer-height));
+        background-color: var(--paper);
+        color: var(--ink);
+    }
+}
+
+/* PROSE */
 @layer base {
     body {
         font-family: var(--font-family-serif);
-        font-size: var(--text-size-base);
+        font-size: var(--font-size-base);
         font-weight: 400;
         text-align: justify;
         hyphens: auto;
@@ -189,7 +193,7 @@
         text-indent: 1.4em;
     }
 
-    /* Do not indent after semantic breaks */
+    /* Do not indent after semantic breaks. */
     h2 + p,
     h3 + p {
         text-indent: 0;
@@ -218,45 +222,21 @@
         display: none;
     }
 
-    /* Preformatted text is styled with the monospace font. */
-    pre,
-    code,
-    kbd,
-    samp {
-        font-family: var(--font-family-mono);
-        font-size: var(--text-size-mono);
-    }
-
-    /*
-        Elements that break the flow of content are styled
-        with margin instead of text-indent.
-    */
-    pre,
-    blockquote,
-    table,
-    figure,
-    math[display="block"] {
-        margin: var(--space-md) 0;
-        padding: 0 var(--space-md);
-    }
-
-    /* Make hr rules look elegant. */
     hr {
         display: block;
         width: 2.5rem;
         height: 1px;
-        margin: 1rem auto 1rem;
+        margin: 1rem auto;
         border: none;
         background: var(--rule);
     }
 
-    /* Subtly style links. */
     a {
+        color: var(--ink);
         text-decoration: underline;
         text-decoration-color: var(--rule);
         text-decoration-thickness: 1px;
         text-underline-offset: 4px;
-        color: var(--ink);
         transition:
             text-decoration-color 100ms,
             text-decoration-thickness 100ms;
@@ -265,6 +245,10 @@
             text-decoration-color: var(--ink);
             text-decoration-thickness: 2px;
         }
+    }
+
+    strong {
+        font-weight: 500;
     }
 }
 
@@ -277,7 +261,7 @@
     #kicker {
         margin-bottom: var(--space-sm);
         font-family: var(--font-family-mono);
-        font-size: var(--text-size-mono-sm);
+        font-size: var(--font-size-mono-sm);
         letter-spacing: 0.1em;
         color: var(--muted);
     }
@@ -305,7 +289,7 @@
             content: "— Abstract —";
             display: block;
             font-family: var(--font-family-mono);
-            font-size: var(--text-size-mono);
+            font-size: var(--font-size-mono);
             color: var(--muted);
             text-align: center;
         }
@@ -319,24 +303,22 @@
 /* FOOTER */
 @layer layout {
     footer {
-        /* Positioning: fixed to bottom, centered within --width */
         position: fixed;
         bottom: 0;
         left: 50%;
         width: min(var(--width), 100%);
         transform: translateX(-50%);
 
-        /* Layout */
         display: flex;
         height: var(--footer-height);
         padding: 0 var(--footer-displacement-width);
         gap: 1rem;
         align-items: center;
 
-        /* Appearance */
         border-top: 1px solid var(--rule);
         background: var(--paper);
 
+        /* Progress indicator: the overline that tracks scroll position. */
         &::before {
             content: "";
             position: absolute;
@@ -356,7 +338,7 @@
     #locus,
     .endnotes {
         font-family: var(--font-family-mono);
-        font-size: var(--text-size-mono-sm);
+        font-size: var(--font-size-mono-sm);
         color: var(--muted);
     }
 
@@ -382,115 +364,181 @@
     }
 }
 
-/* CODE */
-@layer components {
-    /* TODO: figure out the design for code blocks. */
-}
+/* COMMON ELEMENT STYLES */
+@layer elements {
+    /* Common margin and padding for elements that disrupt the flow of prose. */
+    blockquote,
+    pre,
+    img,
+    table,
+    figure,
+    math[display="block"] {
+        margin: var(--space-md) 0;
+        padding: 0 var(--space-lg);
+    }
 
-/* FIGURES */
-@layer components {
+    /*
+     * Elements that need serve supplementary purpose stick out of the content
+     * width slightly (by --space-md).
+     */
+    img,
+    pre,
+    blockquote,
     figure {
-        display: flow-root;
-        margin: 1em auto;
-        overflow-x: scroll;
-    }
-
-    figure:has(figcaption) {
-        margin-bottom: 0.5em;
-    }
-
-    figure figcaption {
-        margin: 4px 10px;
-        font-style: italic;
-        line-height: 1.4;
-        color: var(--muted);
+        --overhang: clamp(0px, calc((100vw - var(--width)) / 2), var(--space-md));
+        margin-left: calc(-1 * var(--overhang));
+        margin-right: calc(-1 * var(--overhang));
+        padding: var(--space-md);
+        overflow-x: auto;
     }
 }
 
 /* LISTS */
-@layer components {
-    ol,
-    ul,
-    ul li,
-    ol li {
-        margin: var(--space-sm) 0;
-    }
-
+@layer elements {
     ol,
     ul {
         padding: 0 var(--space-md) 0 var(--space-lg);
     }
 
+    ol li,
+    ul li {
+        margin: var(--space-sm) 0;
+    }
+
+    /* References use bracketed counters per IEEE convention. */
     .references li::marker {
         content: "[" counter(list-item) "] ";
     }
 }
 
 /* QUOTES */
-@layer components {
+@layer elements {
+    /* Blockquote — decorative opening-quote glyph. */
     blockquote {
         position: relative;
+        border-left: 1px solid var(--rule);
+    }
+}
+
+/* CODE & PRE-FORMATTED TEXT */
+/* NOTE: code should be wrapped to 72 characters. */
+@layer elements {
+    /* Style inline pre-formatted elements. */
+    code,
+    kbd,
+    samp {
+        font-family: var(--font-family-mono);
+        font-size: var(--font-size-mono);
+        padding: 0.08em var(--space-xs);
+        border-radius: 2px;
+        background: var(--wash);
     }
 
-    blockquote::before {
-        content: "\201C"; /* " */
-        position: absolute;
-        left: 0;
-        top: -0.15em;
-        font-size: 2.5em;
-        line-height: 1;
-        color: var(--rule);
-        font-style: normal;
+    /* Style block pre-formatted elements. */
+    pre {
+        font-size: var(--font-size-mono-sm);
+        background-color: var(--wash);
+        border: 1px solid var(--rule);
+        border-radius: 3px;
+
+        /* Reset inline styles if inside a pre. */
+        & > code {
+            padding: 0;
+            border-radius: 0;
+            background: none;
+        }
+    }
+}
+
+/* FIGURES */
+@layer elements {
+    figure {
+        counter-increment: figure;
+        border: 1px solid var(--rule);
+        border-radius: 3px;
+
+        &:has(figcaption) {
+            padding-bottom: 0;
+        }
+    }
+
+    /*
+     * When inside a figure, disable the inner margin. It will be handled by
+     * the figure instead.
+     */
+    figure img,
+    figure pre,
+    figure table {
+        margin: 0;
+        padding: 0;
+    }
+
+    figcaption {
+        margin: 0 calc(-1 * var(--space-md));
+        padding: var(--space-sm) var(--space-md);
+        border-top: 1px solid var(--rule);
+
+        /*font-family: var(--font-family-mono);*/
+        font-size: var(--font-size-sm);
+        /*font-style: italic;*/
+
+        &::before {
+            content: "Figure " counter(figure) " | ";
+            font-weight: 500;
+        }
     }
 }
 
 /* TABLES */
-@layer components {
+/* IMPORTANT: Incomplete */
+@layer elements {
     table {
-        width: auto;
+        overflow-x: auto;
         min-width: 50%;
-        margin-left: auto;
-        margin-right: auto;
-
+        max-width: 100%;
+        margin: var(--space-lg) auto;
         border-collapse: collapse;
-
         font-size: 0.95em;
         line-height: 1.4;
-        color: var(--ink);
     }
 
     th,
     td {
         vertical-align: baseline;
+        padding: var(--space-xs) var(--space-sm);
 
-        &:not(:last-child) {
-            padding-right: var(--space-sm);
+        &:last-child {
+            padding-right: 0;
         }
     }
 
-    /* Style the table header */
-    table thead th {
-        padding: 0.1rem var(--space-xs);
-        border-bottom: 1px solid var(--muted);
+    thead th {
+        padding-bottom: 0.3rem;
+        border-bottom: 2px solid var(--ink);
         font-weight: 500;
         text-align: left;
+        white-space: nowrap;
     }
 
-    table tbody td {
-        padding: 0.12rem var(--space-xs);
+    tbody tr:last-child td {
+        padding-bottom: 0;
     }
 
     caption {
-        color: var(--muted);
         caption-side: bottom;
-        padding-top: 4px;
-        text-align: left;
+        padding-top: var(--space-sm);
+
+        font-family: var(--font-family-mono);
+        font-size: var(--font-size-mono-sm);
         font-style: italic;
+        text-align: left;
+        color: var(--muted);
     }
 }
 
 /* MATH */
-@layer components {
+/* IMPORTANT: Incomplete */
+@layer elements {
     math {
         font-family: "EB Garamond", "Garamond-Math", serif;
     }

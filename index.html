@@ -12,55 +12,56 @@
             content="https://pure-chance.xyz/rss.xml"
         />
         <link rel="icon" type="image/x-icon" href="/public/favicon.svg" />
-        <link rel="stylesheet" href="/main.css" />
+        <link rel="stylesheet" href="/styles.css" />
         <style>
-            /*
-                The current method of cutting off the titles when the window is narrow
-                is not ideal. But it is sufficient for now.
-            */
-
-            ol {
-                padding: 0;
-                list-style: none;
-                margin-top: var(--space-md);
-                margin-bottom: var(--space-md);
-            }
-
-            li.entry {
+            article a {
                 display: flex;
-                flex-direction: row;
                 align-items: center;
-            }
+                margin-top: var(--space-sm);
+                margin-bottom: var(--space-sm);
 
-            li.entry a {
-                font-style: italic;
                 text-decoration: none;
-                color: var(--text);
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
 
-            li.entry hr {
+            article:first-of-type {
+                margin-top: var(--space-md);
+            }
+
+            article:last-of-type {
+                margin-bottom: var(--space-md);
+            }
+
+            article h2 {
+                font-size: var(--font-size-main);
+                font-weight: normal;
+                font-style: italic;
+                margin: 0;
+            }
+
+            article .median {
                 all: unset;
                 display: block;
                 flex: 1;
                 border-top: 1px solid var(--rule);
-                margin: 0 0.5rem;
+                margin: 0 var(--space-sm);
+                margin-top: 0.2em;
             }
 
-            time {
+            article time {
                 font-family: var(--font-family-mono);
-                font-size: var(--text-size-mono-sm);
+                font-size: var(--font-size-mono-sm);
                 color: var(--muted);
                 letter-spacing: -0.02em;
                 white-space: nowrap;
                 flex-shrink: 0;
             }
 
-            .feed {
+            #feed {
                 font-family: var(--font-family-mono);
-                font-size: var(--text-size-mono-sm);
+                font-size: var(--font-size-mono-sm);
                 color: var(--muted);
                 text-align: right;
             }
@@ -73,29 +74,29 @@
                 <h1 id="title">@pure-chance</h1>
             </header>
             <hr />
-            <p>A record of thoughts by @pure-chance.</p>
-            <ol reversed aria-label="Articles">
-                <li class="entry">
-                    <a href="/writing/optimally-bad-wordle/">Optimally Bad Wordle</a>
+            <p>A record of thoughts by <code>@pure-chance</code>.</p>
+            <article>
+                <a href="/writing/optimally-bad-wordle/">
+                    <h2>Optimally Bad Wordle</h2>
                     <hr class="median" />
                     <time datetime="2025-11-06">Nov 06, 2025</time>
-                </li>
-                <li class="entry">
-                    <a href="/writing/iconography-of-an-apocalypse/"
-                        >Iconography of an Apocalypse</a
-                    >
+                </a>
+            </article>
+            <article>
+                <a href="/writing/iconography-of-an-apocalypse/">
+                    <h2>Iconography of an Apocalypse</h2>
                     <hr class="median" />
                     <time datetime="2024-12-16">Dec 12, 2024</time>
-                </li>
-                <li class="entry">
-                    <a href="/writing/youtube-metacommentary-and-authenticity/"
-                        >YouTube Metacommentary and Authenticity</a
-                    >
+                </a>
+            </article>
+            <article>
+                <a href="/writing/youtube-metacommentary-and-authenticity/">
+                    <h2>YouTube Metacommentary and Authenticity</h2>
                     <hr class="median" />
                     <time datetime="2024-06-6">May 06, 2024</time>
-                </li>
-            </ol>
-            <p class="feed">RSS feed at <a href="/rss.xml">rss.xml</a></p>
+                </a>
+            </article>
+            <p id="feed">RSS feed at <a href="/rss.xml">rss.xml</a></p>
         </main>
         <footer>
             <span id="locus">@pure-chance</span>
