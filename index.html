@@ -17,8 +17,8 @@
             article a {
                 display: flex;
                 align-items: center;
-                margin-top: var(--space-sm);
-                margin-bottom: var(--space-sm);
+                margin-top: var(--space-gap);
+                margin-bottom: var(--space-gap);
 
                 text-decoration: none;
                 white-space: nowrap;
@@ -27,11 +27,11 @@
             }
 
             article:first-of-type {
-                margin-top: var(--space-md);
+                margin-top: var(--space-block);
             }
 
             article:last-of-type {
-                margin-bottom: var(--space-md);
+                margin-bottom: var(--space-block);
             }
 
             article h2 {
@@ -45,15 +45,15 @@
                 all: unset;
                 display: block;
                 flex: 1;
-                border-top: 1px solid var(--rule);
-                margin: 0 var(--space-sm);
+                border-top: 1px solid var(--color-rule);
+                margin: 0 var(--space-gap);
                 margin-top: 0.2em;
             }
 
             article time {
                 font-family: var(--font-family-mono);
                 font-size: var(--font-size-mono-sm);
-                color: var(--muted);
+                color: var(--color-muted);
                 letter-spacing: -0.02em;
                 white-space: nowrap;
                 flex-shrink: 0;
@@ -62,7 +62,7 @@
             #feed {
                 font-family: var(--font-family-mono);
                 font-size: var(--font-size-mono-sm);
-                color: var(--muted);
+                color: var(--color-muted);
                 text-align: right;
             }
         </style>
