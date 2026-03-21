@@ -19,7 +19,7 @@
     }
 
     body {
-        line-height: 1.5;
+        line-height: 1.6;
         -webkit-font-smoothing: antialiased;
     }
 
@@ -186,26 +186,35 @@
         text-indent: 1.4em;
     }
 
-    h2 {
-        margin: var(--space-spread) 0 var(--space-trim);
-        font-size: 1.2em;
+    em {
+        font-style: italic;
+    }
+
+    strong {
+        font-weight: 500;
+    }
+
+    h2,
+    h3 {
         font-style: italic;
         font-weight: 500;
         text-align: left;
+    }
+
+    h2 {
+        margin: var(--space-spread) 0 var(--space-trim);
+        font-size: 1.2em;
     }
 
     h3 {
         margin: var(--space-block) 0 var(--space-trim);
         font-size: 1em;
-        font-style: italic;
-        font-weight: 500;
-        text-align: left;
     }
 
-    /* Do not allow sub-sub-+ headings. */
     h4,
     h5,
     h6 {
+        /* Do not allow sub-+ headings. */
         display: none;
     }
 
@@ -232,10 +241,6 @@
             text-decoration-color: var(--color-ink);
             text-decoration-thickness: 2px;
         }
-    }
-
-    strong {
-        font-weight: 500;
     }
 }
 
@@ -342,6 +347,7 @@
     .endnotes {
         flex-shrink: 0;
         text-decoration: none;
+        margin-left: auto;
 
         & > sup {
             color: var(--color-accent);
@@ -351,14 +357,24 @@
 
 /* COMMON ELEMENT STYLES */
 @layer elements {
-    /* Shared vertical space between prose and flow-breaking elements. */
     blockquote,
     pre,
     img,
     table,
     figure,
     math[display="block"] {
+        /* Shared vertical space between prose and flow-breaking elements. */
         margin: var(--space-block) 0;
+    }
+
+    img,
+    svg,
+    video,
+    pre,
+    table,
+    math[display="block"] {
+        /* Scroll for overflowing content. */
+        overflow-x: auto;
     }
 }
 
@@ -374,8 +390,8 @@
         margin: var(--space-gap) 0;
     }
 
-    /* References use bracketed counters per IEEE convention. */
     .references li::marker {
+        /* References use bracketed counters per IEEE convention. */
         content: "[" counter(list-item) "] ";
     }
 }
@@ -406,7 +422,6 @@
         background-color: var(--color-wash);
         padding: var(--space-gap);
         border-radius: 3px;
-        overflow-x: auto;
 
         /* Reset inline styles if inside a pre. */
         & > code {
@@ -425,13 +440,14 @@
      * and no padding. Each child is responsible for its own inset.
      */
     figure {
-        counter-increment: figure;
+        /* Add an overhanging border to each figure. */
         --overhang: clamp(0px, calc((100vw - var(--width)) / 2), var(--space-block));
         margin-left: calc(-1 * var(--overhang));
         margin-right: calc(-1 * var(--overhang));
         border: 1px solid var(--color-rule);
+
+        counter-increment: figure;
         border-radius: 3px;
-        overflow: hidden;
     }
 
     figure img,
@@ -458,7 +474,6 @@
 @layer elements {
     table {
         display: block;
-        overflow-x: auto;
         min-width: 50%;
         max-width: 100%;
         margin: var(--space-spread) auto;
@@ -470,7 +485,9 @@
     th,
     td {
         vertical-align: baseline;
-        padding: var(--space-trim) var(--space-gap);
+        padding-top: var(--space-trim);
+        padding-right: var(--space-gap);
+        padding-left: var(--space-gap);
 
         &:last-child {
             padding-right: 0;
@@ -483,6 +500,10 @@
         font-weight: 500;
         text-align: left;
         white-space: nowrap;
+    }
+
+    tbody td {
+        padding-bottom: var(--space-trim);
     }
 
     tbody tr:last-child td {

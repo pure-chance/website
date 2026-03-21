@@ -264,22 +264,7 @@
         </main>
         <footer>
             <span id="locus" id="running-title">Iconography of an Apocalypse</span>
-            <a href="/" class="endnotes"><sup>*</sup>archive</a>
+            <a href="/" class="endnotes"><sup>*</sup>index</a>
         </footer>
-        <script>
-            const header = document.querySelector(".headline");
-            const footer = document.querySelector(".running-footer");
-            const footerTitle = footer.querySelector(".running-title");
-
-            const observer = new IntersectionObserver(
-                ([e]) => {
-                    footer.classList.toggle("hidden", e.isIntersecting);
-                    footerTitle.classList.toggle("hidden", e.isIntersecting);
-                },
-                { threshold: 0, rootMargin: "0px 0px -60% 0px" },
-            );
-
-            observer.observe(header);
-        </script>
     </body>
 </html>

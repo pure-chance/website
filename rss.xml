@@ -6,9 +6,9 @@
     <subtitle>A record of thoughts by @pure-chance.</subtitle>
     <updated>2025-11-06T00:00:00Z</updated>
     <entry>
-        <title>Optimally Bad Wordle</title>
-        <link href="https://pure-chance.xyz/writing/optimally-bad-wordle" />
-        <id>https://pure-chance.xyz/writing/optimally-bad-wordle</id>
+        <title>Optimally Wrong Wordle</title>
+        <link href="https://pure-chance.xyz/writing/optimally-wrong-wordle" />
+        <id>https://pure-chance.xyz/writing/optimally-wrong-wordle</id>
         <summary>
             In Wordle, after each guess, you are given information about the position and inclusion of letters in the guessed word. Grey indicates the letter is not present in the answer. Yellow indicates the letter is present in the answer but in the wrong position. Green indicates the letter is in the correct position. In strict Wordle, you must use this information in subsequent guesses. So grey letters cannot be used again, yellow letters must be used (but in positions that have not been previously tried), and green letters must be used in their proper positions. Our goal is to anti-optimize, by finding all possible Wordle solutions (answer + 6 guesses) where each guess gives zero information about the answer. Given the rules of strict Wordle, this requires finding 7 words (answer + 6 guesses) such that each word is disjoint with respect to their letters.
         </summary>
