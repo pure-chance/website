@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AO3 Formatting is a Nightmare</title>
+    <meta name="description" content="An exploration of the worse of AO3's HTML formatting." />
+    <meta
+      name="canonical"
+      content="https://pure-chance.xyz/writing/AO3-formatting-is-a-nightmare"
+    />
+    <meta name="alternative" type="application/rss+xml" content="https://pure-chance.xyz/rss.xml" />
+    <link rel="icon" type="image/x-icon" href="/public/favicon.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+    <!--Uses https://syntaxhighlighter.app/ for syntax highlighting.-->
+    <style>
+      .image-compare {
+        display: flex;
+        gap: var(--space-overhang);
+      }
+
+      .image-compare img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        padding: 0;
+      }
+
+      .image-compare img:not(:first-child) {
+        margin-left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <article>
+        <header>
+          <h1 id="title">AO3 Formatting is a Nightmare</h1>
+          <p id="subtitle">An exploration of the worse of AO3's HTML formatting.</p>
+        </header>
+        <hr id="rule" />
+        <h2>Disclaimer</h2>
+        <p>
+          This article is not meant to disparage AO3 authors in any way. They write incredible
+          stories, are likely not familiar with HTML, and generally have much better things to do
+          than nitpick the formatting of their stories. I, on the other hand, have spent an immense
+          amount of time looking through AO3 source code for my web scraping projects, and have Seen
+          Some Things™. My intention here is to have some fun, and hopefully to point out a few ways
+          to improve the formatting of future AO3 works.
+        </p>
+        <h2>Paragraphs</h2>
+        <p>
+          The canonical AO3 formatting error is bad paragraph formatting. This takes
+          <em>many</em> forms, from extra blank paragraphs to multi-paragraph paragraphs broken by
+          poor <code>&lt;br&gt;</code>
+          tags and more.
+        </p>
+        <p>
+          Of them, the more harmless is the empty paragraphs. This, like almost all problems, arises
+          from quirks of word processors. If you don't specify a certain margin between paragraphs,
+          <code>&lt;p&gt;</code> elements next to each other will have no space between them. Thus
+          the author instead has an empty paragraph between each real paragraph for spacing. This
+          causes problems because AO3 <em>will</em> add that proper margin between paragraphs, which
+          combined with the extra space for the blank paragraph results in massive gaps between
+          paragraphs. See <a href="#empty-paragraphs">figure 1</a> for an example.
+        </p>
+        <figure id="empty-paragraphs">
+          <div class="image-compare">
+            <img
+              src="Empty Paragraph Source.png"
+              alt="Google Docs Source for Empty Paragraphs"
+              style="flex: calc(1368 / 968)"
+            />
+            <img
+              src="Empty Paragraph Result.png"
+              alt="AO3 Output for Empty Paragraphs"
+              style="flex: calc(1516 / 1732)"
+            />
+          </div>
+          <figcaption>
+            <strong>Example of how empty paragraphs can occur in Google Docs.</strong> This is a
+            snippet from
+            <a href="https://archiveofourown.org/works/1136739">A Formal Arrangement</a> by
+            <a href="https://archiveofourown.org/users/Etude/pseuds/Requ">Requ (Etude).</a>
+          </figcaption>
+        </figure>
+        <p>
+          If you've noticed, I already mentioned the solution to this problem: simply ensure that
+          your word processor is set to add a margin between paragraphs, and that empty paragraphs
+          are not added.
+        </p>
+        <p>
+          Ultimately, empty paragraphs are an annoyance, but benign in the scheme of things. They
+          don't really break anything, just makes them less visually appealing. True pedants (that's
+          me) can use scripts to automatically remove them if it annoys them enough (it does).
+        </p>
+        <p>
+          A complement to the empty paragraph is the pointless inner span. This is when every single
+          paragraph is actually
+          <code>&lt;p&gt;&lt;span&gt;…&lt;/span&gt;&lt;/p&gt;</code>. This generally has the same
+          effect as empty paragraphs, it just adds excessive space between paragraphs.
+        </p>
+        <p>
+          Unlike empty paragraphs, this is much likelier to be an effect of word processors just
+          doing stupid stuff with HTML. I have no idea how this happens, and I don't want to.
+        </p>
+        <hr />
+        <p>
+          A more serious formatting error is adding <code>&lt;br&gt;</code> tags instead of proper
+          paragraph breaks. In the worst case, the entire chapter is a single paragraph broken up by
+          a series of <code>&lt;br&gt;</code> tags. This will cause the every single paragraph to
+          have <em>zero</em> spacing between them (by default). Most of the time, the
+          “multi-paragraphs” aren't the entire length of the chapter, but contain a few paragraphs
+          each. This instead leads to inconsistent spacing, where the actual paragraphs do have
+          spacing between them, but the “multi-paragraphs” do not. Suffice it to say, it looks ugly.
+          But more importantly than visual appeal, “multi-paragraphs” are an accessibility issue, as
+          explained in the MDN HTML reference.
+        </p>
+        <blockquote>
+          <p>
+            Creating separate paragraphs of text using <code>&lt;br&gt;</code> is not only bad
+            practice, it is problematic for people who navigate with the aid of screen reading
+            technology. Screen readers may announce the presence of the element, but not any content
+            contained within <code>&lt;br&gt;</code>s. This can be a confusing and frustrating
+            experience for the person using the screen reader.
+          </p>
+          <p>
+            Use <code>&lt;p&gt;</code> elements, and use CSS properties like margin to control their
+            spacing.
+          </p>
+        </blockquote>
+        <p>
+          When it comes to multi-paragraphs, the root causes are many. It could be that this is how
+          the word processor stores the underlying HTML. It could be that the user pressed
+          <kbd>shift + enter</kbd> to create a line break, which will add a break instead of a new
+          paragraph. You get the idea.
+        </p>
+        <figure>
+          <pre
+            class="github-light"
+            tabindex="0"
+          ><div class="line"><span>&#x3C;</span><span style="color:#22863A">p</span><span>></span></div><div class="line"><span>    Auradon was confusing. They had known that it would be, but things</span></div><div class="line"><span>    just didn't make any sense here.</span></div><div class="line"><span>    &#x3C;</span><span style="color:#22863A">br</span><span> /></span></div><div class="line"><span>    The Fairy Godmother looked upon her daughter with pride for even</span></div><div class="line"><span>    just walking into a room, and the love she felt for the shy girl</span></div><div class="line"><span>    was so evident.</span></div><div class="line"><span>    &#x3C;</span><span style="color:#22863A">br</span><span> /></span></div><div class="line"><span>    The VKs watched it closely, unable to comprehend. What had Jane</span></div><div class="line"><span>    done that was so great that she was constantly showered in love</span></div><div class="line"><span>    that the girl didn't even seem to understand was a gift.</span></div><div class="line"><span>    &#x3C;</span><span style="color:#22863A">br</span><span> /></span></div><div class="line"><span>    It didn't make sense, and Mal watched Evie's hands clench when she</span></div><div class="line"><span>    watched Fairy Godmother tell her daughter that she was beautiful</span></div><div class="line"><span>    inside and that mattered more than any kind of outer beauty. She</span></div><div class="line"><span>    watched the little witch press her nails into her wrists like her</span></div><div class="line"><span>    mother had, looked like she might vomit because that couldn't be</span></div><div class="line"><span>    true. It went against everything the Evil Queen had drilled into</span></div><div class="line"><span>    Evie, who had been forced to sit in front of a mirror for hours</span></div><div class="line"><span>    with her mother and point out every single imperfection until she</span></div><div class="line"><span>    was sobbing and her head was pounding with pain.</span></div><div class="line"><span>&#x3C;/</span><span style="color:#22863A">p</span><span>></span></div></pre>
+          <figcaption>
+            <strong>Example of a “multi-paragraph”.</strong> This is a snippet from
+            <a href="https://archiveofourown.org/works/26932516"
+              >What did you do to be loved? (Please, give me the answer)
+            </a>
+            by
+            <a
+              href="https://archiveofourown.org/users/DefinitelyNotStraight/pseuds/DefinitelyNotStraight"
+              >DefinitelyNotStraight</a
+            >.
+          </figcaption>
+        </figure>
+        <h2>Emphasis & Strong</h2>
+        <p>
+          As I'm sure anyone who's read a significant amount of fanfiction knows, authors tend to
+          <em>really</em> like adding some stylistic flair to their works. This comes in the form of
+          overusing almost every possible piece of punctuation of decoration, from em-dashes to
+          semicolons to parenthesis. But of course, the biggest offender of all is the humble
+          emphasis.
+        </p>
+        <p>
+          On the positive side, WYSIWYG (what you see is what you get) editors like Google Docs or
+          Microsoft Word show italics as italicized text, so you can be confident that the italics
+          are visually correct in AO3. On the negative side, the semantics are the worst thing ever.
+          This is because the way these editors convert text to italic or bold is by selecting it,
+          and often users will accidentally select surrounding whitespace or punctuation. Because
+          whitespace and punctuation generally do not change appearance based on text decoration,
+          it's visually the same, but semantically wrong. For an example of this, look no further
+          than <cite>at your earliest convenience</cite>, which uses italics extensively.
+        </p>
+        <figure>
+          <pre>
+&lt;p&gt;&lt;em&gt;"Wicked?" &lt;/em&gt;Elphaba blurts, &lt;em&gt;stupidly. &lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;
+  And, &lt;em&gt;bother, stupid stupid bother, &lt;/em&gt;of course Glinda would
+  recognise her voice. The woman jolts in physical reaction, turns her
+  head ever-so-slowly towards Elphaba.
+&lt;/p&gt;
+&lt;p&gt;
+  It feels like the world stops for a moment. She can feel her heart
+  beat hard against her ribcage, as big, brown, stupidly &lt;em&gt;doe &lt;/em&gt;eyes
+  land on her. Elphaba wonders how she ever lived without her gaze.
+&lt;/p&gt;
+&lt;p&gt;
+  "Oh. Oh dear. Um." Glinda bubbles. Then she shoves the palms of her
+  hands into her eyes and begins to &lt;em&gt;laugh. &lt;/em&gt;"That's... Oh, good
+  bloody Oz— I'm going &lt;em&gt;barmy, &lt;/em&gt;this is just so—"
+&lt;/p&gt;
+&lt;p&gt;
+  It sounds hysterical. Hitching, and high-pitched giggles that,
+  concerningly, abruptly melt into what can only be described as
+  &lt;em&gt;sobbing. &lt;/em&gt;
+&lt;/p&gt;
+&lt;p&gt;
+  "Barmy, I've gone utterly, &lt;em&gt;utterly &lt;/em&gt;barmy. Oh, you sound just
+  like my old— my old—" An exquisitely pained &lt;em&gt;keen &lt;/em&gt;escapes her.
+  "Well, what do you know, you brigand? Oz, how awful—I've
+  &lt;em&gt;finally&lt;/em&gt; lost my marbles—"
+&lt;/p&gt;</pre
+          >
+          <figcaption>
+            <strong>An illustrative example of incorrect <code>&lt;em&gt;</code> placement.</strong>
+            This is a snippet from
+            <a href="https://archiveofourown.org/works/62186785">at your earliest convenience</a> by
+            <a href="https://archiveofourown.org/users/Verannode/pseuds/Verannode">Verannode</a>
+          </figcaption>
+        </figure>
+        <p>
+          While this visually looks perfect, the emphasis tags are not even close to correct with
+          regards to whitespace. For instance, in
+          <samp>stupidly &lt;em&gt;doe &lt;/em&gt;eyes</samp>, the emphasis tags should have no
+          whitespace on the inside. So it should be
+          <samp>stupidly &lt;em&gt;doe&lt;/em&gt; eyes</samp>. This also applies to punctuation. For
+          example, in <samp>I’m going &lt;em&gt;barmy, &lt;/em&gt;this is just so—</samp>, the
+          emphasis is on the word <em>barmy</em> and not on the punctuation. So it should be
+          <samp>I’m going &lt;em&gt;barmy&lt;/em&gt;, this is just so—</samp>. But note that
+          sometimes the punctuation is part of the emphasis, as is often the case when the entire
+          sentence is emphasized.
+        </p>
+        v
+        <p>
+          Everything I've explained about emphasis also applies exactly the same for strong.
+          Trailing whitespace should not be bold or italic.
+        </p>
+        <h2>A Simple Problem</h2>
+        <p>
+          While the possibilities for incorrect HTML are endless, the solution is both universal and
+          simple: manually review the output HTML. Think of it like the final revision, which can
+          only you do as the final step before publication. All these problems are easily caught and
+          fixed. There are also plenty of resources for learning how to write semantic HTML.
+          <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference">MDN Reference</a> is
+          one such resource, as is the official HTML standard at
+          <a href="https://html.spec.whatwg.org/multipage/">WHATWG</a>. You don't need to read
+          everything. For a writer, all you really need to know are the text elements, such as
+          <code>&lt;p&gt;</code>, <code>&lt;em&gt;</code>, and <code>&lt;strong&gt;</code>.
+        </p>
+        <p>
+          Alas, as I know firsthand, fixing up HTML might be easy, but it can be time consuming. You
+          can use certain regex tools to find and fix common issues, but this should be done
+          carefully, as there are always edge cases where the pattern might be incorrect. This is
+          the strategy that many reader-facing tools use. For writers though, a better approach
+          likely is to just ask AI to fix the HTML for you, specifying not to touch any of the
+          content. Though I understand if you don't want to feed your story to an AI. (Though if you
+          post it it's probably going to be scraped whether you want it or not, AI companies
+          couldn't care less about the <code>robots.txt</code>.)
+        </p>
+        <p>
+          I hope this little guide helps you write better HTML for your fanfiction, or at least
+          understand why it might look the way it does.
+        </p>
+      </article>
+    </main>
+    t
+    <footer>
+      <span id="locus">AO3 Formatting is a Nightmare</span>
+      <a href="/" class="via"><sup>*</sup>index</a>
+    </footer>
+  </body>
+</html>

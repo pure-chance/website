@@ -1,10 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+s<?xml version="1.0" encoding="UTF-8" ?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>@pure-chance</title>
     <link href="https://pure-chance.xyz" />
     <id>https://pure-chance.xyz</id>
     <subtitle>A record of thoughts by @pure-chance.</subtitle>
-    <updated>2025-11-06T00:00:00Z</updated>
+    <updated>2026-04-07T00:00:00Z</updated>
+    <entry>
+        <title>AO3 Formatting is a Nightmare</title>
+        <link href="https://pure-chance.xyz/writing/AO3-formatting-is-a-nightmare" />
+        <id>https://pure-chance.xyz/writing/AO3-formatting-is-a-nightmare</id>
+        <summary>
+            An exploration of the worst formatting on AO3.
+        </summary>
+        <published>2026-04-16T00:00:00Z</published>
+        <updated>2026-04-16T00:00:00Z</updated>
+    </entry>
     <entry>
         <title>Optimally Wrong Wordle</title>
         <link href="https://pure-chance.xyz/writing/optimally-wrong-wordle" />
