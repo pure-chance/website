@@ -68,16 +68,24 @@
 @layer base {
     :root {
         /* Colors */
-        --color-ink: #17160f;
-        --color-paper: #f2f0ef;
-        --color-wash: #e8e4df;
-        --color-muted: #706a5a;
-        --color-accent: #a70e16;
-        --color-rule: #cbc5ba;
+        --color-ink: oklch(10% 0 0deg);
+        --color-paper: oklch(96% 0 0deg);
+        --color-pencil: oklch(4% 0 0deg);
+        --color-rule: oklch(80% 0 0deg);
+        --color-inset: oklch(92% 0 0deg);
+        --color-mark: oklch(46% 0.18 27deg);
+
+        /*@media (prefers-color-scheme: dark) {
+            --color-ink: oklch(90% 0 0deg);
+            --color-paper: oklch(20% 0 0deg);
+            --color-pencil: oklch(70% 0 0deg);
+            --color-rule: oklch(40% 0 0deg);
+            --color-inset: oklch(24% 0 0deg);
+            --color-mark: oklch(70% 0.18 27deg);
+        }*/
 
         /* Layout */
         --width: 640px;
-        --overhang: 3rem;
 
         /*
          * Spacing scale. Each token is named for its typical role:
@@ -96,9 +104,8 @@
         --font-family-mono: "Maple Mono", monospace;
         --font-size-base: 13pt;
         --font-size-sm: 10pt;
-        --font-size-mono: 0.8rem;
-        --font-size-code: 0.78rem;
-        --font-size-mono-sm: 0.68rem;
+        --font-size-mono: 0.74em;
+        --font-size-mono-sm: 0.6em;
 
         /* Footer */
         --footer-height: 2rem;
@@ -158,7 +165,7 @@
 
     @font-face {
         font-family: "Garamond-Math";
-        src: url("/public/fonts/EBGaramond/Garamond-Math.otf") format("opentype");
+        src: url("/public/fonts/Garamond-Math/Garamond-Math.otf") format("opentype");
         font-weight: 400;
         font-style: normal;
         font-display: swap;
@@ -170,7 +177,7 @@
     body {
         max-width: var(--width);
         margin: 0 auto;
-        padding: 3rem var(--footer-displacement-width) calc(3rem + var(--footer-height));
+        padding: 3rem var(--footer-displacement-width) calc(2rem + var(--footer-height));
         background-color: var(--color-paper);
         color: var(--color-ink);
     }
@@ -225,7 +232,7 @@
         display: block;
         width: 2.5rem;
         height: 1px;
-        margin: var(--space-block) auto;
+        margin: calc(var(--space-block) + 0.1em) auto calc(var(--space-block) - 0.1em);
         border: none;
         background: var(--color-rule);
     }
@@ -233,7 +240,7 @@
     a {
         color: var(--color-ink);
         text-decoration: underline;
-        text-decoration-color: var(--color-rule);
+        text-decoration-color: var(--color-pencil);
         text-decoration-thickness: 1px;
         text-underline-offset: 4px;
         transition:
@@ -263,7 +270,7 @@
     #subtitle {
         font-style: italic;
         line-height: 1.3;
-        color: var(--color-muted);
+        color: var(--color-pencil);
     }
 
     #abstract {
@@ -276,7 +283,7 @@
             display: block;
             font-family: var(--font-family-mono);
             font-size: var(--font-size-mono);
-            color: var(--color-muted);
+            color: var(--color-pencil);
             text-align: center;
         }
     }
@@ -309,18 +316,13 @@
             background: var(--color-ink);
             transition: opacity 500ms ease;
         }
-
-        &.hidden::before {
-            opacity: 0;
-            transition: opacity 200ms ease;
-        }
     }
 
     #locus,
     .via {
         font-family: var(--font-family-mono);
         font-size: var(--font-size-mono-sm);
-        color: var(--color-muted);
+        color: var(--color-pencil);
     }
 
     #locus {
@@ -341,7 +343,7 @@
         margin-left: auto;
 
         & > sup {
-            color: var(--color-accent);
+            color: var(--color-mark);
         }
     }
 }
@@ -406,13 +408,16 @@
         font-size: var(--font-size-mono);
         padding: 0.08em var(--space-trim);
         border-radius: 2px;
-        background: var(--color-wash);
+        background: var(--color-inset);
     }
 
     pre {
-        background-color: var(--color-wash);
+        font-family: var(--font-family-mono);
+        font-size: var(--font-size-mono);
+
+        background-color: var(--color-inset);
         padding: var(--space-gap);
-        border-radius: 3px;
+        border-radius: 2px;
 
         /* Reset inline styles if inside a pre. */
         & > code {
@@ -420,6 +425,10 @@
             border-radius: 0;
             background: none;
             font-size: var(--font-size-mono);
+        }
+
+        & br {
+            margin: 0;
         }
     }
 }
@@ -446,6 +455,7 @@
     figure table {
         margin: var(--space-gap);
         max-width: calc(100% - 2 * var(--space-gap));
+        border-radius: 2px;
     }
 
     figcaption {
