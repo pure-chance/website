@@ -441,24 +441,24 @@
      */
     figure {
         /* Add an overhanging border to each figure. */
-        --overhang: clamp(0px, calc((100vw - var(--width)) / 2), var(--space-block));
+        --overhang: clamp(0px, calc((100vw - var(--width)) / 2), var(--space-gap));
         margin-left: calc(-1 * var(--overhang));
         margin-right: calc(-1 * var(--overhang));
         border: 1px solid var(--color-rule);
 
         counter-increment: figure;
-        border-radius: 3px;
+        border-radius: 2px;
     }
 
     figure img,
     figure pre,
     figure table {
-        margin: var(--space-block);
-        max-width: calc(100% - 2 * var(--space-block));
+        margin: var(--space-gap);
+        max-width: calc(100% - 2 * var(--space-gap));
     }
 
     figcaption {
-        padding: var(--space-gap) var(--space-block);
+        padding: var(--space-gap) var(--space-gap);
         border-top: 1px solid var(--color-rule);
         font-size: var(--font-size-sm);
 
