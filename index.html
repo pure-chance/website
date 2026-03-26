@@ -14,19 +14,21 @@
         <link rel="icon" type="image/x-icon" href="/public/favicon.svg" />
         <link rel="stylesheet" href="/styles.css" />
         <style>
+            article {
+                margin-top: var(--space-gap);
+                margin-bottom: var(--space-gap);
+                &:last-of-type {
+                    margin-bottom: var(--space-block);
+                }
+                &:hover {
+                    color: var(--color-accent);
+                }
+            }
+
             article a {
                 display: flex;
                 align-items: baseline;
                 text-decoration: none;
-                margin-top: var(--space-gap);
-                margin-bottom: var(--space-gap);
-            }
-
-            article:first-of-type {
-                margin-top: var(--space-block);
-            }
-            article:last-of-type {
-                margin-bottom: var(--space-block);
             }
 
             article h2 {
@@ -35,13 +37,19 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                /* The very end of the last char gets clipped when the text is
+                    italic and overflow is hidden. Adding a tiny bit of padding
+                    avoids this issue.
+                */
+                padding-right: 0.05rem;
             }
 
             article .median {
                 flex: 1;
-                margin: 0 var(--space-gap);
                 position: relative;
-                top: -0.25rem;
+                top: -0.2rem;
+                margin: 0 var(--space-gap);
+                background-color: var(--color-rule);
             }
 
             article time {
@@ -67,8 +75,7 @@
                 <p id="kicker" aria-hidden="true">Index</p>
                 <h1 id="title">@pure-chance</h1>
             </header>
-            <hr />
-            <p>A record of thoughts by <code>pure-chance</code>.</p>
+            <hr id="rule" />
             <article>
                 <a href="/writing/optimally-wrong-wordle/">
                     <h2>Optimally Wrong Wordle</h2>
