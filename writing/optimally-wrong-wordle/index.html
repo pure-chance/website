@@ -1,225 +1,212 @@
 <!doctype html>
 <html lang="en-US">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Optimally Wrong Wordle</title>
-        <meta name="description" content="The quest for the optimally bad Wordle games." />
-        <meta name="canonical" content="https://pure-chance.xyz/writing/optimally-bad-wordle" />
-        <meta
-            name="alternative"
-            type="application/rss+xml"
-            content="https://pure-chance.xyz/rss.xml"
-        />
-        <link rel="icon" type="image/x-icon" href="/public/favicon.svg" />
-        <link rel="stylesheet" href="/styles.css" />
-    </head>
-    <body>
-        <main>
-            <article>
-                <header>
-                    <p id="kicker" aria-hidden="true">Note</p>
-                    <h1 id="title">Optimally Wrong Wordle</h1>
-                    <p id="subtitle">The quest for the worst Wordle player.</p>
-                </header>
-                <hr id="rule" />
-                <h2>Problem Statement</h2>
-                <p>
-                    In standard Wordle, players attempt to identify a hidden five-letter word within
-                    six guesses, receiving feedback after each attempt regarding letter correctness
-                    and positioning. This project inverts that objective: find <em>all</em> possible
-                    combinations of one answer word and six guess words where the guesses provide
-                    zero information about the answer. Formally, the problem can be stated as
-                    follows: Find all 7-tuples
-                    <math>
-                        <mrow>
-                            <mi>S</mi>
-                            <mo>=</mo>
-                            <mo stretchy="false">(</mo>
-                            <mi>a</mi>
-                            <mo>,</mo>
-                            <msub><mi>g</mi><mn>1</mn></msub>
-                            <mo>,</mo>
-                            <msub><mi>g</mi><mn>2</mn></msub>
-                            <mo>,</mo>
-                            <msub><mi>g</mi><mn>3</mn></msub>
-                            <mo>,</mo>
-                            <msub><mi>g</mi><mn>4</mn></msub>
-                            <mo>,</mo>
-                            <msub><mi>g</mi><mn>5</mn></msub>
-                            <mo>,</mo>
-                            <msub><mi>g</mi><mn>6</mn></msub>
-                            <mo stretchy="false">)</mo>
-                        </mrow>
-                    </math>
-                    where
-                    <math>
-                        <mrow>
-                            <mi>a</mi>
-                            <mo>∈</mo>
-                            <mi>A</mi>
-                        </mrow>
-                    </math>
-                    and
-                    <math>
-                        <mrow>
-                            <msub><mi>g</mi><mi>i</mi></msub>
-                            <mo>∈</mo>
-                            <mi>G</mi>
-                        </mrow>
-                    </math>
-                    for
-                    <math>
-                        <mrow>
-                            <mi>i</mi>
-                            <mo>∈</mo>
-                            <mo stretchy="false">{</mo>
-                            <mn>1</mn>
-                            <mo>,</mo>
-                            <mn>2</mn>
-                            <mo>,</mo>
-                            <mn>3</mn>
-                            <mo>,</mo>
-                            <mn>4</mn>
-                            <mo>,</mo>
-                            <mn>5</mn>
-                            <mo>,</mo>
-                            <mn>6</mn>
-                            <mo stretchy="false">}</mo>
-                        </mrow> </math
-                    >, such that all words
-                    <math>
-                        <mrow>
-                            <mi>w</mi>
-                            <mo>∈</mo>
-                            <mi>S</mi>
-                        </mrow>
-                    </math>
-                    are pairwise disjoint with respect to their constituent letters.
-                    <math><mi>A</mi></math> is the set of answer words and
-                    <math><mi>G</mi></math> is the set of guess words.
-                </p>
-                <p>
-                    This problem is a clique problem, which are computationally hard, as in NP-hard.
-                    With
-                    <math>
-                        <mo stretchy="false" lspace="0" rspace="0">|</mo>
-                        <mi>A</mi>
-                        <mo stretchy="false" lspace="0" rspace="0">|</mo>
-                        <mo>=</mo>
-                        <mn>2</mn>
-                        <mo rspace="0">,</mo>
-                        <mn>331</mn>
-                    </math>
-                    and
-                    <math>
-                        <mo stretchy="false" lspace="0" rspace="0">|</mo>
-                        <mi>G</mi>
-                        <mo stretchy="false" lspace="0" rspace="0">|</mo>
-                        <mo>=</mo>
-                        <mn>10</mn>
-                        <mo rspace="0">,</mo>
-                        <mn>657</mn></math
-                    >
-                    , it's going to take a very carefully optimized algorithm to solve this in any
-                    reasonable amount of time.
-                </p>
-                <h2>Signatures</h2>
-                <p>
-                    The first optimization that we can make is to use bitsets to represent each
-                    word. Consider that for this problem, the only thing that matters is whether a
-                    word contains a given letter. There are 26 possible letters, and a
-                    <code>u32</code> has 32 bits. So we can represent each word as a
-                    <code>u32</code> where each bit represents whether the word contains the
-                    corresponding letter. This allows us to quickly check if two words share any
-                    letters by performing a bitwise AND operation and comparing the result to zero
-                    (e.g., <code>a &amp; b == 0</code>).
-                </p>
-                <p>
-                    This also has nice secondary benefits, like being able to quickly union sets of
-                    words by performing bitwise OR on their bitsets (e.g., <code>a | b</code>).
-                </p>
-                <p>
-                    Another critical realization is that many guesses have the same signature. So
-                    instead of checking each of the 10,657 guesses, we can deduplicate them and only
-                    check the 6,655 unique guess signatures. We also apply this to the answers,
-                    which have 2,331 unique signatures.
-                </p>
-                <p>
-                    This means that after we <em>pack</em> the signatures, we need to
-                    <em>realize</em> these "signature" solutions back into all the Wordle solutions
-                    that could have produced this packing. Packing and realization are performed
-                    sequentially, and will be discussed in more detail in the next sections.
-                </p>
-                <h2>Packing</h2>
-                <p>
-                    Packing happens in 3 steps (for each deduplicated answer signature in parallel):
-                    find all triples, partition triples, and scan-and-merge partitions.
-                </p>
-                <ol>
-                    <li>
-                        <p>
-                            <em>Find Triples</em>—We want to find all disjoint triples for some
-                            answer signature. To do this, first we filter out all guesses which are
-                            already disjoint with the answer. From this reduced guess set, we
-                            iterate all triples and check that the 3 guesses are disjoint. A nice
-                            and simple optimization is to skip trying to make a triple if the first
-                            two are already disjoint.
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            <em>Partition Triples By Signature</em>—At this point, we have tens of
-                            millions of triples, so we can't just check all pairs in reasonable
-                            time. Instead, we partition triples by their union with some partition,
-                            and then we can only check a small subset of triples, skipping many
-                            non-disjoint triples. From experimental results, we've found that the
-                            optimal signature to partition by is the top ten letters
-                            <em>"seaoriltnu"</em>.
-                        </p>
-                    </li>
-                    <li>
-                        <p>
-                            <em>Scan and Merge Partitions</em>—Finally, we iterate each pair of
-                            partitions. If the partitions keys are not disjoint, then we know that
-                            all pairs of triples from these partitions are not disjoint. If the two
-                            partition keys, then check each pair of triples from these partitions,
-                            creating a packing if the two triples are disjoint.
-                        </p>
-                    </li>
-                </ol>
-                <h2>Realization</h2>
-                <p>
-                    After packing, the core computational problem is done. But the solution are are
-                    all combinations of signatures, not of words. And as we know, the process of
-                    converting words to signatures is not injective. So for each packing, there are
-                    potentially multiple different combinations of words which could you produced
-                    it. In realization, we do exactly this. For each packing, we collect all
-                    possible combinations of words which would have generated this packing. This is
-                    done by creating a lookup table with signatures as keys and their corresponding
-                    words as values. This is precisely the inverse function of word to signature.
-                    Then for a given packing, we collect the multi-cartesian product of all words
-                    for each signature in the packing. This is done for each packing, the set of
-                    unique such solutions are our goal.
-                </p>
-                <h2>Results</h2>
-                <p>
-                    Our findings tell us that there are 565,783 packings, and 1,122,348 solutions.
-                </p>
-                <h2>References</h2>
-                <p>
-                    The original inspiration for this project is
-                    <a href="https://www.youtube.com/watch?v=zoh5eLOjwHA&t=156s"
-                        >You should play Wordle wrong</a
-                    >
-                    by Ellie Rasmussen. You can read my full source code
-                    <a href="https://github.com/pure-chance/optimally-bad-wordle">here</a>.
-                </p>
-            </article>
-        </main>
-        <footer>
-            <span id="locus">Optimally Wrong Wordle</span>
-            <a href="/" class="endnotes"><sup>*</sup>index</a>
-        </footer>
-    </body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Optimally Wrong Wordle</title>
+    <meta name="description" content="The quest for the optimally bad Wordle games." />
+    <meta name="canonical" content="https://pure-chance.xyz/writing/optimally-bad-wordle" />
+    <meta name="alternative" type="application/rss+xml" content="https://pure-chance.xyz/rss.xml" />
+    <link rel="icon" type="image/x-icon" href="/public/favicon.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <article>
+        <header>
+          <p id="kicker" aria-hidden="true">Note</p>
+          <h1 id="title">Optimally Wrong Wordle</h1>
+          <p id="subtitle">The quest for the worst Wordle player.</p>
+        </header>
+        <hr id="rule" />
+        <h2>Problem Statement</h2>
+        <p>
+          In standard Wordle, players attempt to identify a hidden five-letter word within six
+          guesses, receiving feedback after each attempt regarding letter correctness and
+          positioning. This project inverts that objective: find <em>all</em> possible combinations
+          of one answer word and six guess words where the guesses provide zero information about
+          the answer. Formally, the problem can be stated as follows: Find all 7-tuples
+          <math>
+            <mrow>
+              <mi>S</mi>
+              <mo>=</mo>
+              <mo stretchy="false">(</mo>
+              <mi>a</mi>
+              <mo>,</mo>
+              <msub><mi>g</mi><mn>1</mn></msub>
+              <mo>,</mo>
+              <msub><mi>g</mi><mn>2</mn></msub>
+              <mo>,</mo>
+              <msub><mi>g</mi><mn>3</mn></msub>
+              <mo>,</mo>
+              <msub><mi>g</mi><mn>4</mn></msub>
+              <mo>,</mo>
+              <msub><mi>g</mi><mn>5</mn></msub>
+              <mo>,</mo>
+              <msub><mi>g</mi><mn>6</mn></msub>
+              <mo stretchy="false">)</mo>
+            </mrow>
+          </math>
+          where
+          <math>
+            <mrow>
+              <mi>a</mi>
+              <mo>∈</mo>
+              <mi>A</mi>
+            </mrow>
+          </math>
+          and
+          <math>
+            <mrow>
+              <msub><mi>g</mi><mi>i</mi></msub>
+              <mo>∈</mo>
+              <mi>G</mi>
+            </mrow>
+          </math>
+          for
+          <math>
+            <mrow>
+              <mi>i</mi>
+              <mo>∈</mo>
+              <mo stretchy="false">{</mo>
+              <mn>1</mn>
+              <mo>,</mo>
+              <mn>2</mn>
+              <mo>,</mo>
+              <mn>3</mn>
+              <mo>,</mo>
+              <mn>4</mn>
+              <mo>,</mo>
+              <mn>5</mn>
+              <mo>,</mo>
+              <mn>6</mn>
+              <mo stretchy="false">}</mo>
+            </mrow> </math
+          >, such that all words
+          <math>
+            <mrow>
+              <mi>w</mi>
+              <mo>∈</mo>
+              <mi>S</mi>
+            </mrow>
+          </math>
+          are pairwise disjoint with respect to their constituent letters.
+          <math><mi>A</mi></math> is the set of answer words and <math><mi>G</mi></math> is the set
+          of guess words.
+        </p>
+        <p>
+          This problem is a clique problem, which are computationally hard, as in NP-hard. With
+          <math>
+            <mo stretchy="false" lspace="0" rspace="0">|</mo>
+            <mi>A</mi>
+            <mo stretchy="false" lspace="0" rspace="0">|</mo>
+            <mo>=</mo>
+            <mn>2</mn>
+            <mo rspace="0">,</mo>
+            <mn>331</mn>
+          </math>
+          and
+          <math>
+            <mo stretchy="false" lspace="0" rspace="0">|</mo>
+            <mi>G</mi>
+            <mo stretchy="false" lspace="0" rspace="0">|</mo>
+            <mo>=</mo>
+            <mn>10</mn>
+            <mo rspace="0">,</mo>
+            <mn>657</mn></math
+          >
+          , it's going to take a very carefully optimized algorithm to solve this in any reasonable
+          amount of time.
+        </p>
+        <h2>Signatures</h2>
+        <p>
+          The first optimization that we can make is to use bitsets to represent each word. Consider
+          that for this problem, the only thing that matters is whether a word contains a given
+          letter. There are 26 possible letters, and a
+          <code>u32</code> has 32 bits. So we can represent each word as a <code>u32</code> where
+          each bit represents whether the word contains the corresponding letter. This allows us to
+          quickly check if two words share any letters by performing a bitwise AND operation and
+          comparing the result to zero (e.g., <code>a &amp; b == 0</code>).
+        </p>
+        <p>
+          This also has nice secondary benefits, like being able to quickly union sets of words by
+          performing bitwise OR on their bitsets (e.g., <code>a | b</code>).
+        </p>
+        <p>
+          Another critical realization is that many guesses have the same signature. So instead of
+          checking each of the 10,657 guesses, we can deduplicate them and only check the 6,655
+          unique guess signatures. We also apply this to the answers, which have 2,331 unique
+          signatures.
+        </p>
+        <p>
+          This means that after we <em>pack</em> the signatures, we need to <em>realize</em> these
+          "signature" solutions back into all the Wordle solutions that could have produced this
+          packing. Packing and realization are performed sequentially, and will be discussed in more
+          detail in the next sections.
+        </p>
+        <h2>Packing</h2>
+        <p>
+          Packing happens in 3 steps (for each deduplicated answer signature in parallel): find all
+          triples, partition triples, and scan-and-merge partitions.
+        </p>
+        <ol>
+          <li>
+            <p>
+              <em>Find Triples</em>—We want to find all disjoint triples for some answer signature.
+              To do this, first we filter out all guesses which are already disjoint with the
+              answer. From this reduced guess set, we iterate all triples and check that the 3
+              guesses are disjoint. A nice and simple optimization is to skip trying to make a
+              triple if the first two are already disjoint.
+            </p>
+          </li>
+          <li>
+            <p>
+              <em>Partition Triples By Signature</em>—At this point, we have tens of millions of
+              triples, so we can't just check all pairs in reasonable time. Instead, we partition
+              triples by their union with some partition, and then we can only check a small subset
+              of triples, skipping many non-disjoint triples. From experimental results, we've found
+              that the optimal signature to partition by is the top ten letters
+              <em>"seaoriltnu"</em>.
+            </p>
+          </li>
+          <li>
+            <p>
+              <em>Scan and Merge Partitions</em>—Finally, we iterate each pair of partitions. If the
+              partitions keys are not disjoint, then we know that all pairs of triples from these
+              partitions are not disjoint. If the two partition keys, then check each pair of
+              triples from these partitions, creating a packing if the two triples are disjoint.
+            </p>
+          </li>
+        </ol>
+        <h2>Realization</h2>
+        <p>
+          After packing, the core computational problem is done. But the solution are are all
+          combinations of signatures, not of words. And as we know, the process of converting words
+          to signatures is not injective. So for each packing, there are potentially multiple
+          different combinations of words which could you produced it. In realization, we do exactly
+          this. For each packing, we collect all possible combinations of words which would have
+          generated this packing. This is done by creating a lookup table with signatures as keys
+          and their corresponding words as values. This is precisely the inverse function of word to
+          signature. Then for a given packing, we collect the multi-cartesian product of all words
+          for each signature in the packing. This is done for each packing, the set of unique such
+          solutions are our goal.
+        </p>
+        <h2>Results</h2>
+        <p>Our findings tell us that there are 565,783 packings, and 1,122,348 solutions.</p>
+        <h2>References</h2>
+        <p>
+          The original inspiration for this project is
+          <a href="https://www.youtube.com/watch?v=zoh5eLOjwHA&t=156s"
+            >You should play Wordle wrong</a
+          >
+          by Ellie Rasmussen. You can read my full source code
+          <a href="https://github.com/pure-chance/optimally-bad-wordle">here</a>.
+        </p>
+      </article>
+    </main>
+    <footer>
+      <span id="locus">Optimally Wrong Wordle</span>
+      <a href="/" class="endnotes"><sup>*</sup>index</a>
+    </footer>
+  </body>
 </html>

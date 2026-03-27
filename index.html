@@ -1,108 +1,104 @@
 <!doctype html>
 <html lang="en-US">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>pure-chance</title>
-        <meta name="description" content="A record of thoughts by @pure-chance." />
-        <meta name="canonical" content="https://pure-chance.xyz" />
-        <meta
-            name="alternative"
-            type="application/rss+xml"
-            content="https://pure-chance.xyz/rss.xml"
-        />
-        <link rel="icon" type="image/x-icon" href="/public/favicon.svg" />
-        <link rel="stylesheet" href="/styles.css" />
-        <style>
-            article {
-                margin-top: var(--space-gap);
-                margin-bottom: var(--space-gap);
-                &:last-of-type {
-                    margin-bottom: var(--space-block);
-                }
-                &:hover {
-                    color: var(--color-accent);
-                }
-            }
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>pure-chance</title>
+    <meta name="description" content="A record of thoughts by @pure-chance." />
+    <meta name="canonical" content="https://pure-chance.xyz" />
+    <meta name="alternative" type="application/rss+xml" content="https://pure-chance.xyz/rss.xml" />
+    <link rel="icon" type="image/x-icon" href="/public/favicon.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      article {
+        margin-top: var(--space-gap);
+        margin-bottom: var(--space-gap);
+        &:last-of-type {
+          margin-bottom: var(--space-block);
+        }
+        &:hover {
+          color: var(--color-accent);
+        }
+      }
 
-            article a {
-                display: flex;
-                align-items: baseline;
-                text-decoration: none;
-            }
+      article a {
+        display: flex;
+        align-items: baseline;
+        text-decoration: none;
+      }
 
-            article h2 {
-                font: italic normal var(--font-size-base) var(--font-family-serif);
-                margin: 0;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                /* The very end of the last char gets clipped when the text is
+      article h2 {
+        font: italic normal var(--font-size-base) var(--font-family-serif);
+        margin: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* The very end of the last char gets clipped when the text is
                     italic and overflow is hidden. Adding a tiny bit of padding
                     avoids this issue.
                 */
-                padding-right: 0.05rem;
-            }
+        padding-right: 0.05rem;
+      }
 
-            article .median {
-                flex: 1;
-                position: relative;
-                top: -0.2rem;
-                margin: 0 var(--space-gap);
-                background-color: var(--color-rule);
-            }
+      article .median {
+        flex: 1;
+        position: relative;
+        top: -0.2rem;
+        margin: 0 var(--space-gap);
+        background-color: var(--color-rule);
+      }
 
-            article time {
-                font-family: var(--font-family-mono);
-                font-size: var(--font-size-mono-sm);
-                color: var(--color-muted);
-                letter-spacing: -0.02em;
-                white-space: nowrap;
-                flex-shrink: 0;
-            }
+      article time {
+        font-family: var(--font-family-mono);
+        font-size: var(--font-size-mono-sm);
+        color: var(--color-muted);
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
 
-            #feed {
-                font-family: var(--font-family-mono);
-                font-size: var(--font-size-mono-sm);
-                color: var(--color-muted);
-                text-align: right;
-            }
-        </style>
-    </head>
-    <body>
-        <main>
-            <header>
-                <p id="kicker" aria-hidden="true">Index</p>
-                <h1 id="title">@pure-chance</h1>
-            </header>
-            <hr id="rule" />
-            <article>
-                <a href="/writing/optimally-wrong-wordle/">
-                    <h2>Optimally Wrong Wordle</h2>
-                    <hr class="median" />
-                    <time datetime="2025-11-06">2025.11.06</time>
-                </a>
-            </article>
-            <article>
-                <a href="/writing/iconography-of-an-apocalypse/">
-                    <h2>Iconography of an Apocalypse</h2>
-                    <hr class="median" />
-                    <time datetime="2024-12-16">2024.12.16</time>
-                </a>
-            </article>
-            <article>
-                <a href="/writing/youtube-metacommentary-and-authenticity/">
-                    <h2>YouTube Metacommentary and Authenticity</h2>
-                    <hr class="median" />
-                    <time datetime="2024-06-06">2024.06.06</time>
-                </a>
-            </article>
-            <p id="feed">RSS feed at <a href="/rss.xml">rss.xml</a></p>
-        </main>
-        <footer>
-            <span id="locus"><sup>*</sup>@pure-chance</span>
-            <a href="/about" class="endnotes"><sup>†</sup>about</a>
-            <a href="/resources" class="endnotes"><sup>‡</sup>resources</a>
-        </footer>
-    </body>
+      #feed {
+        font-family: var(--font-family-mono);
+        font-size: var(--font-size-mono-sm);
+        color: var(--color-muted);
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p id="kicker" aria-hidden="true">Index</p>
+        <h1 id="title">@pure-chance</h1>
+      </header>
+      <hr id="rule" />
+      <article>
+        <a href="/writing/optimally-wrong-wordle/">
+          <h2>Optimally Wrong Wordle</h2>
+          <hr class="median" />
+          <time datetime="2025-11-06">2025.11.06</time>
+        </a>
+      </article>
+      <article>
+        <a href="/writing/iconography-of-an-apocalypse/">
+          <h2>Iconography of an Apocalypse</h2>
+          <hr class="median" />
+          <time datetime="2024-12-16">2024.12.16</time>
+        </a>
+      </article>
+      <article>
+        <a href="/writing/youtube-metacommentary-and-authenticity/">
+          <h2>YouTube Metacommentary and Authenticity</h2>
+          <hr class="median" />
+          <time datetime="2024-06-06">2024.06.06</time>
+        </a>
+      </article>
+      <p id="feed">RSS feed at <a href="/rss.xml">rss.xml</a></p>
+    </main>
+    <footer>
+      <span id="locus"><sup>*</sup>@pure-chance</span>
+      <a href="/about" class="endnotes"><sup>†</sup>about</a>
+      <a href="/resources" class="endnotes"><sup>‡</sup>resources</a>
+    </footer>
+  </body>
 </html>
