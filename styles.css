@@ -321,7 +321,7 @@
     }
 
     #locus,
-    .endnotes {
+    .via {
         font-family: var(--font-family-mono);
         font-size: var(--font-size-mono-sm);
         color: var(--color-muted);
@@ -339,7 +339,7 @@
         }
     }
 
-    .endnotes {
+    .via {
         flex-shrink: 0;
         text-decoration: none;
         margin-left: auto;
