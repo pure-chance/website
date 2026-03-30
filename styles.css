@@ -155,6 +155,14 @@
         font-style: italic;
         font-display: swap;
     }
+
+    @font-face {
+        font-family: "Garamond-Math";
+        src: url("/public/fonts/EBGaramond/Garamond-Math.otf") format("opentype");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
 }
 
 /* DOCUMENT */
@@ -498,6 +506,6 @@
 /* IMPORTANT: Incomplete */
 @layer elements {
     math {
-        font-family: "EB Garamond", "Garamond-Math", serif;
+        font-family: "Garamond-Math", "EB Garamond", serif;
     }
 }
