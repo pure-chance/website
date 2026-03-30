@@ -245,14 +245,6 @@
         text-align: center;
     }
 
-    #kicker {
-        margin-bottom: var(--space-trim);
-        font-family: var(--font-family-mono);
-        font-size: var(--font-size-mono-sm);
-        letter-spacing: 0.05em;
-        color: var(--color-muted);
-    }
-
     h1 {
         margin-bottom: 0.2rem;
         font-size: 1.5rem;
