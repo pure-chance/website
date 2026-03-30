@@ -34,18 +34,18 @@
         overflow: hidden;
         text-overflow: ellipsis;
         /* The very end of the last char gets clipped when the text is
-                    italic and overflow is hidden. Adding a tiny bit of padding
-                    avoids this issue.
-                */
+           italic and overflow is hidden. Adding a tiny bit of padding
+           avoids this issue.
+        */
         padding-right: 0.05rem;
       }
 
-      article .median {
+      article hr.median {
+        unset: all;
         flex: 1;
         position: relative;
         top: -0.2rem;
         margin: 0 var(--space-gap);
-        background-color: var(--color-rule);
       }
 
       article time {
@@ -96,7 +96,7 @@
       <p id="feed">RSS feed at <a href="/rss.xml">rss.xml</a></p>
     </main>
     <footer>
-      <span id="locus"><sup>*</sup>@pure-chance</span>
+      <span id="locus">@pure-chance</span>
       <a href="/about" class="via"><sup>†</sup>about</a>
       <a href="/resources" class="via"><sup>‡</sup>resources</a>
     </footer>

@@ -89,7 +89,7 @@
         --space-trim: 0.25rem;
         --space-gap: 0.5rem;
         --space-block: 1rem;
-        --space-spread: 1.4rem;
+        --space-spread: 1.5rem;
 
         /* Typography */
         --font-family-serif: "EB Garamond", "Garamond", serif;
@@ -246,16 +246,16 @@
     }
 
     #kicker {
-        margin-bottom: var(--space-gap);
+        margin-bottom: var(--space-trim);
         font-family: var(--font-family-mono);
         font-size: var(--font-size-mono-sm);
-        letter-spacing: 0.1em;
+        letter-spacing: 0.05em;
         color: var(--color-muted);
     }
 
     h1 {
         margin-bottom: 0.2rem;
-        font-size: 1.55rem;
+        font-size: 1.5rem;
         font-weight: 400;
         line-height: 1.2;
     }
@@ -279,10 +279,6 @@
             color: var(--color-muted);
             text-align: center;
         }
-    }
-
-    hr#rule {
-        margin-top: 0.9rem;
     }
 }
 
