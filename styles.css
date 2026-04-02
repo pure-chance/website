@@ -260,11 +260,9 @@
         text-align: center;
     }
 
-    h1 {
-        margin-bottom: 0.2rem;
+    h1#title {
         font-size: 1.5rem;
         font-weight: 400;
-        line-height: 1.2;
     }
 
     #subtitle {
