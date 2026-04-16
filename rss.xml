@@ -1,4 +1,4 @@
-s<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <title>@pure-chance</title>
     <link href="https://pure-chance.xyz" />
@@ -7,8 +7,8 @@ s<?xml version="1.0" encoding="UTF-8" ?>
     <updated>2026-04-07T00:00:00Z</updated>
     <entry>
         <title>AO3 Formatting is a Nightmare</title>
-        <link href="https://pure-chance.xyz/writing/AO3-formatting-is-a-nightmare" />
-        <id>https://pure-chance.xyz/writing/AO3-formatting-is-a-nightmare</id>
+        <link href="https://pure-chance.xyz/AO3-formatting-is-a-nightmare" />
+        <id>https://pure-chance.xyz/AO3-formatting-is-a-nightmare</id>
         <summary>
             An exploration of the worst formatting on AO3.
         </summary>
@@ -17,8 +17,8 @@ s<?xml version="1.0" encoding="UTF-8" ?>
     </entry>
     <entry>
         <title>Optimally Wrong Wordle</title>
-        <link href="https://pure-chance.xyz/writing/optimally-wrong-wordle" />
-        <id>https://pure-chance.xyz/writing/optimally-wrong-wordle</id>
+        <link href="https://pure-chance.xyz/optimally-wrong-wordle" />
+        <id>https://pure-chance.xyz/optimally-wrong-wordle</id>
         <summary>
             In Wordle, after each guess, you are given information about the position and inclusion of letters in the guessed word. Grey indicates the letter is not present in the answer. Yellow indicates the letter is present in the answer but in the wrong position. Green indicates the letter is in the correct position. In strict Wordle, you must use this information in subsequent guesses. So grey letters cannot be used again, yellow letters must be used (but in positions that have not been previously tried), and green letters must be used in their proper positions. Our goal is to anti-optimize, by finding all possible Wordle solutions (answer + 6 guesses) where each guess gives zero information about the answer. Given the rules of strict Wordle, this requires finding 7 words (answer + 6 guesses) such that each word is disjoint with respect to their letters.
         </summary>
@@ -27,8 +27,8 @@ s<?xml version="1.0" encoding="UTF-8" ?>
     </entry>
     <entry>
         <title>Iconography of an Apocalypse</title>
-        <link href="https://pure-chance.xyz/writing/iconography-of-an-apocalypse" />
-        <id>https://pure-chance.xyz/writing/iconography-of-an-apocalypse</id>
+        <link href="https://pure-chance.xyz/iconography-of-an-apocalypse" />
+        <id>https://pure-chance.xyz/iconography-of-an-apocalypse</id>
         <summary>
             Asking “What does the end of the world look like?”, this paper considers the modern legacy of nuclear weapons in the iconography of apocalyptic media. How has the perception of nukes been mutated by modern media, and what does its current cultural image reflect about us?
         </summary>
@@ -37,8 +37,8 @@ s<?xml version="1.0" encoding="UTF-8" ?>
     </entry>
     <entry>
         <title>YouTube Metacommentary and Authenticity</title>
-        <link href="https://pure-chance.xyz/writing/youtube-metacommentary-and-authenticity" />
-        <id>https://pure-chance.xyz/writing/youtube-metacommentary-and-authenticity</id>
+        <link href="https://pure-chance.xyz/youtube-metacommentary-and-authenticity" />
+        <id>https://pure-chance.xyz/youtube-metacommentary-and-authenticity</id>
         <summary>
             A linguistic analysis of Authenticity on YouTube, through the lens of metacommentary and the ways that YouTuber's index authenticity.
         </summary>

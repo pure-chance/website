@@ -69,10 +69,10 @@
     :root {
         /* Colors */
         --color-ink: oklch(10% 0 0deg);
-        --color-paper: oklch(96% 0 0deg);
+        --color-paper: oklch(98% 0 0deg);
         --color-pencil: oklch(4% 0 0deg);
         --color-rule: oklch(80% 0 0deg);
-        --color-inset: oklch(92% 0 0deg);
+        --color-inset: oklch(92% 0.004 90deg);
         --color-mark: oklch(46% 0.18 27deg);
 
         /*@media (prefers-color-scheme: dark) {
@@ -193,7 +193,7 @@
     }
 
     p + p {
-        text-indent: 1.4em;
+        text-indent: 1.2em;
     }
 
     em {
@@ -208,7 +208,6 @@
     h3 {
         font-style: italic;
         font-weight: 500;
-        text-align: left;
     }
 
     h2 {
@@ -232,7 +231,7 @@
         display: block;
         width: 2.5rem;
         height: 1px;
-        margin: calc(var(--space-block) + 0.1em) auto calc(var(--space-block) - 0.1em);
+        margin: var(--space-block) auto;
         border: none;
         background: var(--color-rule);
     }
@@ -261,8 +260,9 @@
     }
 
     h1#title {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
         font-weight: 400;
+        font-style: normal;
     }
 
     #subtitle {
