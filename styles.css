@@ -75,15 +75,6 @@
         --color-inset: oklch(92% 0.004 90deg);
         --color-mark: oklch(46% 0.18 27deg);
 
-        /*@media (prefers-color-scheme: dark) {
-            --color-ink: oklch(90% 0 0deg);
-            --color-paper: oklch(20% 0 0deg);
-            --color-pencil: oklch(70% 0 0deg);
-            --color-rule: oklch(40% 0 0deg);
-            --color-inset: oklch(24% 0 0deg);
-            --color-mark: oklch(70% 0.18 27deg);
-        }*/
-
         /* Layout */
         --width: 640px;
 
