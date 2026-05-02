@@ -229,13 +229,20 @@
           <samp>stupidly &lt;em&gt;doe&lt;/em&gt; eyes</samp>. This also applies to punctuation. For
           example, in <samp>I’m going &lt;em&gt;barmy, &lt;/em&gt;this is just so—</samp>, the
           emphasis is on the word <em>barmy</em> and not on the punctuation. So it should be
-          <samp>I’m going &lt;em&gt;barmy&lt;/em&gt;, this is just so—</samp>. But note that
-          sometimes the punctuation is part of the emphasis, as is often the case when the entire
-          sentence is emphasized.
+          <samp>I’m going &lt;em&gt;barmy&lt;/em&gt;, this is just so—</samp>.
         </p>
         <p>
-          Everything I've explained about emphasis also applies exactly the same for strong.
-          Trailing whitespace should not be bold or italic.
+          But note that sometimes the punctuation is part of the emphasis, as is often the case when
+          the entire sentence is emphasized. This type of punctuation is known as “logical
+          punctuation” (aka the British style), which aims to only surround the word or phrase being
+          emphasized, and not additional punctuation that surrounds it, as is the case with the US
+          convention. While I personally prefer the logical style, either is fine so long as it is
+          consistent. What is really important is that whitespace is not emphasized. The emphasis
+          should be tight to the word or phrase being emphasized, without any extra spacing.
+        </p>
+        <p>
+          Everything I've explained about emphasis also applies exactly the same for strong (as well
+          as quotes, parentheses, and any punctuation which surrounds text).
         </p>
         <h2>A Simple Problem</h2>
         <p>
@@ -250,14 +257,19 @@
           <code>&lt;p&gt;</code>, <code>&lt;em&gt;</code>, and <code>&lt;strong&gt;</code>.
         </p>
         <p>
-          Alas, as I know firsthand, fixing up HTML might be easy, but it can be time consuming. You
-          can use certain regex tools to find and fix common issues, but this should be done
-          carefully, as there are always edge cases where the pattern might be incorrect. This is
-          the strategy that many reader-facing tools use. For writers though, a better approach
-          likely is to just ask AI to fix the HTML for you, specifying not to touch any of the
-          content. Though I understand if you don't want to feed your story to an AI. (Though if you
-          post it it's probably going to be scraped whether you want it or not, AI companies
-          couldn't care less about the <code>robots.txt</code>.)
+          Alas, as I know firsthand, fixing up HTML might be easy, but it can be time consuming (as
+          in long chapters might take you 30 minutes or more to fix). You can use certain regex
+          tools to find and fix common issues, but this should be done carefully, as there are
+          always edge cases where the pattern might be incorrect. This is the strategy that many
+          reader-facing tools use. For writers though, a better approach likely is to just ask write
+          the document in HTML to begin with, so that you have maximum control over the output. I
+          promise this isn't as bad as you think.
+        </p>
+        <p>
+          And then there is the nuclear option: ask AI to fix the HTML for you, specifying not to
+          touch any of the content. Though I understand if you don't want to feed your story to an
+          AI (though if you post it it's probably going to be scraped anyways, AI companies couldn't
+          care less about the <code>robots.txt</code>).
         </p>
         <p>
           I hope this little guide helps you write better HTML for your fanfiction, or at least
