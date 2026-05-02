@@ -280,7 +280,7 @@
 
 /* FOOTER */
 @layer layout {
-    footer {
+    footer#running-footer {
         position: fixed;
         bottom: 0;
         left: 50%;
@@ -307,14 +307,14 @@
         }
     }
 
-    #locus,
-    .via {
+    #label,
+    .ref {
         font-family: var(--font-family-mono);
         font-size: var(--font-size-mono-sm);
         color: var(--color-pencil);
     }
 
-    #locus {
+    #label {
         flex: 1;
         overflow: hidden;
         white-space: nowrap;
@@ -326,7 +326,7 @@
         }
     }
 
-    .via {
+    .ref {
         flex-shrink: 0;
         text-decoration: none;
         margin-left: auto;
