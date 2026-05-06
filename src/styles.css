@@ -246,7 +246,7 @@
 
 /* HEADER */
 @layer layout {
-    header {
+    header#headline {
         text-align: center;
     }
 
