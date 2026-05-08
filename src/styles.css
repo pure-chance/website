@@ -70,7 +70,7 @@
         /* Colors */
         --color-ink: oklch(10% 0 0deg);
         --color-paper: oklch(98% 0 0deg);
-        --color-pencil: oklch(4% 0 0deg);
+        --color-pencil: oklch(20% 0 0deg);
         --color-rule: oklch(80% 0 0deg);
         --color-inset: oklch(92% 0.004 90deg);
         --color-mark: oklch(46% 0.18 27deg);
@@ -91,7 +91,7 @@
         --space-spread: 1.5rem;
 
         /* Typography */
-        --font-family-serif: "EB Garamond", "Garamond", serif;
+        --font-family-serif: "EB Garamond", serif;
         --font-family-mono: "Maple Mono", monospace;
         --font-size-base: 13pt;
         --font-size-sm: 10pt;
@@ -108,39 +108,23 @@
 @layer base {
     @font-face {
         font-family: "EB Garamond";
-        src: url("/public/fonts/EBGaramond/EBGaramond-Regular.woff2") format("woff2");
-        font-weight: 400;
+        src: url("/public/fonts/EBGaramond/EBGaramond.woff2") format("woff2-variations");
+        font-weight: 400 800;
         font-style: normal;
         font-display: swap;
     }
 
     @font-face {
         font-family: "EB Garamond";
-        src: url("/public/fonts/EBGaramond/EBGaramond-Italic.woff2") format("woff2");
-        font-weight: 400;
-        font-style: italic;
-        font-display: swap;
-    }
-
-    @font-face {
-        font-family: "EB Garamond";
-        src: url("/public/fonts/EBGaramond/EBGaramond-Medium.woff2") format("woff2");
-        font-weight: 500;
-        font-style: normal;
-        font-display: swap;
-    }
-
-    @font-face {
-        font-family: "EB Garamond";
-        src: url("/public/fonts/EBGaramond/EBGaramond-MediumItalic.woff2") format("woff2");
-        font-weight: 500;
+        src: url("/public/fonts/EBGaramond/EBGaramond-Italic.woff2") format("woff2-variations");
+        font-weight: 400 800;
         font-style: italic;
         font-display: swap;
     }
 
     @font-face {
         font-family: "Maple Mono";
-        src: url("/public/fonts/MapleMono/MapleMono-Regular.woff2") format("woff2");
+        src: url("/public/fonts/MapleMono/MapleMono.woff2") format("woff2");
         font-weight: 400;
         font-style: normal;
         font-display: swap;
@@ -157,7 +141,7 @@
     @font-face {
         font-family: "Garamond-Math";
         src: url("/public/fonts/Garamond-Math/Garamond-Math.otf") format("opentype");
-        font-weight: 400;
+        font-weight: 400 800;
         font-style: normal;
         font-display: swap;
     }
@@ -192,13 +176,13 @@
     }
 
     strong {
-        font-weight: 500;
+        font-weight: 600;
     }
 
     h2,
     h3 {
         font-style: italic;
-        font-weight: 500;
+        font-weight: 450; /* A little bit darker than normal. */
     }
 
     h2 {
@@ -252,14 +236,16 @@
 
     h1#title {
         font-size: 1.7rem;
-        font-weight: 400;
+        font-weight: normal;
         font-style: normal;
+        line-height: 1em;
     }
 
     #subtitle {
         font-style: italic;
         line-height: 1.3;
         color: var(--color-pencil);
+        margin-top: var(--space-gap);
     }
 
     #abstract {
@@ -454,7 +440,7 @@
 
         &::before {
             content: "Figure " counter(figure) " | ";
-            font-weight: 500;
+            font-weight: 600;
         }
     }
 }
@@ -487,7 +473,7 @@
     thead th {
         padding-bottom: 0.3rem;
         border-bottom: 2px solid var(--color-ink);
-        font-weight: 500;
+        font-weight: 600;
         text-align: left;
         white-space: nowrap;
     }
