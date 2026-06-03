@@ -248,21 +248,6 @@
         margin-top: var(--space-gap);
     }
 
-    #abstract {
-        margin-top: var(--space-spread);
-        text-align: justify;
-        hyphens: auto;
-
-        &::before {
-            content: "— Abstract —";
-            display: block;
-            font-family: var(--font-family-mono);
-            font-size: var(--font-size-mono);
-            color: var(--color-pencil);
-            text-align: center;
-        }
-    }
-
     #headline::after {
         content: "";
         display: block;
