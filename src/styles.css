@@ -87,7 +87,7 @@
         --space-trim: 0.25rem;
         --space-gap: 0.5rem;
         --space-block: 1rem;
-        --space-spread: 1.5rem;
+        --space-spread: 2rem;
 
         /* Typography */
         --font-family-serif: "EB Garamond", serif;
@@ -178,26 +178,28 @@
         font-weight: 600;
     }
 
-    h1,
+    h1 {
+        font-style: italic;
+        font-weight: normal;
+        font-size: 24pt;
+        line-height: 1em;
+    }
+
     h2,
     h3 {
         font-style: italic;
         font-weight: normal;
-    }
-
-    h1 {
-        font-size: 2rem;
-        line-height: 1em;
+        text-align: left;
     }
 
     h2 {
-        margin: var(--space-spread) 0 var(--space-trim);
-        font-size: 1.2em;
+        margin: var(--space-block) 0 var(--space-trim);
+        font-size: 16pt;
     }
 
     h3 {
-        margin: var(--space-block) 0 var(--space-trim);
-        font-size: 1em;
+        margin: var(--space-gap) 0 var(--space-gap);
+        font-size: 13pt;
     }
 
     h4,
