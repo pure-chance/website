@@ -75,7 +75,7 @@
         --color-mark: oklch(46% 0.18 27deg);
 
         /* Layout */
-        --width: 640px;
+        --width: 720px;
 
         /*
          * Spacing scale. Each token is named for its typical role:
@@ -92,14 +92,19 @@
         /* Typography */
         --font-family-serif: "EB Garamond", serif;
         --font-family-mono: "Maple Mono", monospace;
-        --font-size-base: 13pt;
-        --font-size-sm: 10pt;
+        --font-size: 14pt;
+        --font-size-sm: 11pt;
         --font-size-mono: 0.74em;
         --font-size-mono-sm: 0.6em;
 
         /* Footer */
         --footer-height: 2rem;
         --footer-displacement-width: clamp(1.2rem, 20px, 2rem);
+
+        @media (max-width: 420px) {
+            --font-size: 13pt;
+            --font-size-sm: 10pt;
+        }
     }
 }
 
@@ -161,7 +166,7 @@
 @layer base {
     body {
         font-family: var(--font-family-serif);
-        font-size: var(--font-size-base);
+        font-size: var(--font-size);
         text-align: justify;
         hyphens: auto;
     }
