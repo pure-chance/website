@@ -19,7 +19,7 @@
     }
 
     body {
-        line-height: 1.6;
+        line-height: 1.5;
         -webkit-font-smoothing: antialiased;
     }
 
@@ -75,7 +75,7 @@
         --color-mark: oklch(46% 0.18 27deg);
 
         /* Layout */
-        --width: 720px;
+        --width: 640px;
 
         /*
          * Spacing scale. Each token is named for its typical role:
@@ -93,7 +93,6 @@
         --font-family-serif: "EB Garamond", serif;
         --font-family-mono: "Maple Mono", monospace;
         --font-size: 14pt;
-        --font-size-sm: 11pt;
         --font-size-mono: 0.74em;
         --font-size-mono-sm: 0.6em;
 
@@ -103,7 +102,6 @@
 
         @media (max-width: 420px) {
             --font-size: 13pt;
-            --font-size-sm: 10pt;
         }
     }
 }
@@ -186,7 +184,7 @@
     h1 {
         font-style: italic;
         font-weight: normal;
-        font-size: 24pt;
+        font-size: calc(var(--font-size) + 8pt);
         line-height: 1em;
     }
 
@@ -199,12 +197,12 @@
 
     h2 {
         margin: var(--space-block) 0 var(--space-trim);
-        font-size: 16pt;
+        font-size: calc(var(--font-size) + 2pt);
     }
 
     h3 {
         margin: var(--space-gap) 0 var(--space-gap);
-        font-size: 13pt;
+        font-size: var(--font-size);
     }
 
     h4,
@@ -434,7 +432,7 @@
     figcaption {
         padding: var(--space-gap) var(--space-gap);
         border-top: 1px solid var(--color-rule);
-        font-size: var(--font-size-sm);
+        font-size: calc(var(--font-size) - 2pt);
 
         &::before {
             content: "Figure " counter(figure) " | ";
