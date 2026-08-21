@@ -110,34 +110,35 @@
 @layer base {
     @font-face {
         font-family: "EB Garamond";
-        src: url("/fonts/EBGaramond/EBGaramond.woff2") format("woff2-variations");
-        font-weight: 400 800;
+        src: url("/fonts/EBGaramond/EBGaramond-Regular.woff2") format("woff2");
+        font-weight: 400;
         font-style: normal;
         font-display: swap;
     }
 
     @font-face {
         font-family: "EB Garamond";
-        src: url("/fonts/EBGaramond/EBGaramond-Italic.woff2") format("woff2-variations");
-        font-weight: 400 800;
-        font-style: italic;
-        font-display: swap;
-    }
-
-    @font-face {
-        font-family: "Maple Mono";
-        src: url("/fonts/MapleMono/MapleMono.woff2") format("woff2");
-        font-weight: 400;
+        src: url("/fonts/EBGaramond/EBGaramond-Bold.woff2") format("woff2");
+        font-weight: 700;
         font-style: normal;
         font-display: swap;
     }
 
     @font-face {
-        font-family: "Maple Mono";
-        src: url("/fonts/MapleMono/MapleMono-Italic.woff2") format("woff2");
+        font-family: "EB Garamond";
+        src: url("/fonts/EBGaramond/EBGaramond-Italic.woff2") format("woff2");
         font-weight: 400;
         font-style: italic;
         font-display: swap;
+    }
+
+    @font-face {
+        font-family: "Maple Mono";
+        src: url("/fonts/MapleMono/MapleMono-Regular.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+        unicode-range: U+0020-007E, U+2001, U+200B, U+2010, U+2013-2014, U+2016, U+2018-2024, U+2026-2027, U+2030, U+2032-2034, U+2039-203A, U+203C-203F, U+2044-2046, U+204F, U+2070-2071, U+2074-2089, U+20A3, U+20A6, U+20A9, U+20AB-20AC, U+20B9-20BA, U+20BD, U+20BF, U+2500-259F;
     }
 
     @font-face {
@@ -173,36 +174,20 @@
         text-indent: 1.5em;
     }
 
-    em {
-        font-style: italic;
-    }
-
-    strong {
-        font-weight: 600;
-    }
-
     h1 {
-        font-style: italic;
-        font-weight: normal;
-        font-size: calc(var(--font-size) + 8pt);
+        font-size: calc(var(--font-size) + 10pt);
         line-height: 1em;
-    }
-
-    h2,
-    h3 {
-        font-style: italic;
-        font-weight: normal;
-        text-align: left;
+        text-align: center;
     }
 
     h2 {
-        margin: var(--space-block) 0 var(--space-trim);
         font-size: calc(var(--font-size) + 2pt);
+        margin: var(--space-block) 0 var(--space-trim);
     }
 
     h3 {
+        font-size: calc(var(--font-size) + 0pt);
         margin: var(--space-gap) 0 var(--space-gap);
-        font-size: var(--font-size);
     }
 
     h4,
@@ -435,8 +420,8 @@
         font-size: calc(var(--font-size) - 2pt);
 
         &::before {
-            content: "Figure " counter(figure) " | ";
-            font-weight: 600;
+            content: "Fig." counter(figure) ":";
+            font-weight: bold;
         }
     }
 }
@@ -469,7 +454,7 @@
     thead th {
         padding-bottom: 0.3rem;
         border-bottom: 2px solid var(--color-ink);
-        font-weight: 600;
+        font-weight: bold;
         text-align: left;
         white-space: nowrap;
     }
