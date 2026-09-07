@@ -76,6 +76,7 @@
 
         /* Layout */
         --width: 640px;
+        --indentation: 1.5em;
 
         /*
          * Spacing scale. Each token is named for its typical role:
@@ -96,12 +97,14 @@
         --font-size-mono: 0.74em;
         --font-size-mono-sm: 0.6em;
 
+
         /* Footer */
         --footer-height: 2rem;
         --footer-displacement-width: clamp(1.2rem, 20px, 2rem);
 
         @media (max-width: 420px) {
-            --font-size: 13pt;
+            --indentation: 1.2em;
+            --font-size: 13.5pt;
         }
     }
 }
@@ -171,7 +174,7 @@
     }
 
     p + p {
-        text-indent: 1.5em;
+        text-indent: var(--indentation);
     }
 
     h1 {
