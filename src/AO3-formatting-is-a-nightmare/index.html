@@ -15,7 +15,6 @@
       .image-compare img {
         width: 100%;
         height: auto;
-        object-fit: contain;
         padding: 0;
       }
 
@@ -48,7 +47,7 @@
           tags and more.
         </p>
         <p>
-          Of them, the more harmless is the empty paragraphs. This, like almost all problems, arises
+          Of them, the least harmful are empty paragraphs. This, like almost all problems, arises
           from quirks of word processors. If you don't specify a certain margin between paragraphs,
           <code>&lt;p&gt;</code> elements next to each other will have no space between them. Thus
           the author instead has an empty paragraph between each real paragraph for spacing. This
@@ -99,13 +98,13 @@
         <p>
           A more serious formatting error is adding <code>&lt;br&gt;</code> tags instead of proper
           paragraph breaks. In the worst case, the entire chapter is a single paragraph broken up by
-          a series of <code>&lt;br&gt;</code> tags. This will cause the every single paragraph to
-          have <em>zero</em> spacing between them (by default). Most of the time, the
-          “multi-paragraphs” aren't the entire length of the chapter, but contain a few paragraphs
-          each. This instead leads to inconsistent spacing, where the actual paragraphs do have
-          spacing between them, but the “multi-paragraphs” do not. Suffice it to say, it looks ugly.
-          But more importantly than visual appeal, “multi-paragraphs” are an accessibility issue, as
-          explained in the MDN HTML reference.
+          a series of <code>&lt;br&gt;</code> tags. This will cause every single paragraph to have
+          <em>zero</em> spacing between them (by default). Most of the time, the “multi-paragraphs”
+          aren't the entire length of the chapter, but contain a few paragraphs each. This instead
+          leads to inconsistent spacing, where the actual paragraphs do have spacing between them,
+          but the “multi-paragraphs” do not. Suffice it to say, it looks ugly. But more importantly
+          than visual appeal, “multi-paragraphs” are an accessibility issue, as explained in the MDN
+          HTML reference.
         </p>
         <blockquote>
           <p>
@@ -243,9 +242,9 @@
         <h2>A Simple Problem</h2>
         <p>
           While the possibilities for incorrect HTML are endless, the solution is both universal and
-          simple: manually review the output HTML. Think of it like the final revision, which can
-          only you do as the final step before publication. All these problems are easily caught and
-          fixed. There are also plenty of resources for learning how to write semantic HTML.
+          simple: manually review the output HTML. Think of it like the final revision, (which only
+          you can do), before publication. All these problems are easily caught and fixed. There are
+          also plenty of resources for learning how to write semantic HTML.
           <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference">MDN Reference</a> is
           one such resource, as is the official HTML standard at
           <a href="https://html.spec.whatwg.org/multipage/">WHATWG</a>. You don't need to read
@@ -257,8 +256,8 @@
           in long chapters might take you 30 minutes or more to fix). You can use certain regex
           tools to find and fix common issues, but this should be done carefully, as there are
           always edge cases where the pattern might be incorrect. This is the strategy that many
-          reader-facing tools use. For writers though, a better approach likely is to just ask write
-          the document in HTML to begin with, so that you have maximum control over the output. I
+          reader-facing tools use. For writers though, a better approach likely is to just write the
+          document in HTML to begin with, so that you have maximum control over the output. I
           promise this isn't as bad as you think.
         </p>
         <p>
