@@ -380,6 +380,7 @@
 
         /* Reset inline styles if inside a pre. */
         & > code {
+            font: inherit;
             padding: 0;
             border-radius: 0;
             background: none;
