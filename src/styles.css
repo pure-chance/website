@@ -332,7 +332,6 @@
 }
 
 /* CODE & PRE-FORMATTED TEXT */
-/* NOTE: code should be wrapped to 72 characters. */
 @layer elements {
     code,
     kbd,
@@ -366,10 +365,6 @@
 
 /* FIGURES */
 @layer elements {
-    /*
-     * The figure is purely a frame: a border that overhangs the column,
-     * and no padding. Each child is responsible for its own inset.
-     */
     figure {
         /* Add an overhanging border to each figure. */
         --overhang: clamp(0px, calc((100vw - var(--content-width)) / 2), var(--space-gap));
