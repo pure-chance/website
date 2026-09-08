@@ -13,7 +13,6 @@
     }
 
     body {
-        line-height: 1.5;
         -webkit-font-smoothing: antialiased;
     }
 
@@ -36,19 +35,14 @@
     p,
     h1,
     h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    h3 {
         overflow-wrap: break-word;
     }
 
     h1,
     h2,
-    h3,
-    h4,
-    h5,
-    h6 {
+    h3 {
+        overflow-wrap: break-word;
         text-wrap: balance;
     }
 }
@@ -80,20 +74,20 @@
         --space-spread: 2rem;
 
         /* Typography */
-        --font-family-serif: "EB Garamond", serif;
+        --font-family-serif: "EB Garamond", Garamond, serif;
         --font-family-mono: "Maple Mono", monospace;
-        --font-size: 14pt;
-        --font-scale-mono: 0.72em;
-        --font-scale-mono-ui: 0.6em;
 
+        --font-size: 1.2rem;
+        --font-size-mono: 0.84rem;
+        --font-size-ui: 0.72rem;
 
         /* Footer */
         --footer-height: 2rem;
         --footer-displacement-width: clamp(1.2rem, 20px, 2rem);
 
-        @media (max-width: 420px) {
+        @media (max-width: 520px) {
             --indentation: 1.2em;
-            --font-size: 13.5pt;
+            --font-size: 1.15rem;
         }
     }
 }
@@ -135,8 +129,8 @@
 
     @font-face {
         font-family: "Garamond-Math";
-        src: url("/fonts/Garamond-Math/Garamond-Math.otf") format("opentype");
-        font-weight: 400 800;
+        src: url("/fonts/Garamond-Math/Garamond-Math.woff2") format("woff2");
+        font-weight: 400;
         font-style: normal;
         font-display: swap;
     }
@@ -154,6 +148,8 @@
 
         font-family: var(--font-family-serif);
         font-size: var(--font-size);
+
+        line-height: 1.5;
         text-align: justify;
         hyphens: auto;
     }
@@ -177,7 +173,7 @@
     }
 
     h3 {
-        font-size: calc(var(--font-size) + 0pt);
+        font-size:calc(var(--font-size) + 0pt);
         margin: var(--space-gap) 0 var(--space-gap);
     }
 
@@ -260,7 +256,7 @@
     #label,
     .ref {
         font-family: var(--font-family-mono);
-        font-size: var(--font-scale-mono-ui);
+        font-size: var(--font-size-ui);
         color: var(--color-ink);
     }
 
@@ -280,7 +276,7 @@
         flex-shrink: 0;
         text-decoration: none;
 
-        & > sup {
+        & sup {
             color: var(--color-mark);
         }
     }
@@ -302,6 +298,7 @@
     svg,
     video {
         /* Ensure media fits in content width. */
+        min-width: 0;
         max-width: 100%;
     }
 }
@@ -321,6 +318,11 @@
     li > p + p {
         text-indent: var(--indentation);
     }
+
+    .references li::marker {
+        /* References use bracketed counters per IEEE convention. */
+        content: "[" counter(list-item) "] ";
+    }
 }
 
 /* QUOTES */
@@ -337,7 +339,7 @@
     kbd,
     samp {
         font-family: var(--font-family-mono);
-        font-size: var(--font-scale-mono);
+        font-size: var(--font-size-mono);
         padding: 0.08em var(--space-trim);
         border-radius: 2px;
         background: var(--color-inset);
@@ -345,7 +347,7 @@
 
     pre {
         font-family: var(--font-family-mono);
-        font-size: var(--font-scale-mono);
+        font-size: var(--font-size-mono);
 
         background-color: var(--color-inset);
         padding: var(--space-gap);
@@ -381,6 +383,7 @@
     figure table,
     figure pre,
     figure math[display="block"] {
+        display: block;
         margin: var(--space-gap);
         max-width: calc(100% - 2 * var(--space-gap));
         border-radius: 2px;
@@ -393,7 +396,7 @@
         overflow-x: auto;
     }
 
-    figure:not(.code, .table, .eq):has(figcaption) {
+    figure:not(.code, .table):has(figcaption) {
         counter-increment: figure
     }
     figure.code:has(figcaption) {
@@ -402,16 +405,14 @@
     figure.table:has(figcaption) {
         counter-increment: table;
     }
-    figure.eq:has(figcaption) {
-        counter-increment: equation;
-    }
 
     figcaption {
         padding: var(--space-gap);
         border-top: 1px solid var(--color-rule);
         font-size: calc(var(--font-size) - 2pt);
+    }
 
-    figure:not(.code, .table, .eq) figcaption::before {
+    figure:not(.code, .table) figcaption::before {
         content: "Fig." counter(figure) ": ";
         font-weight: bold;
     }
@@ -421,10 +422,6 @@
     }
     figure.table figcaption::before {
         content: "Tbl." counter(table) ": ";
-        font-weight: bold;
-    }
-    figure.eq figcaption::before {
-        content: "Eq." counter(equation) ": ";
         font-weight: bold;
     }
 }
@@ -489,7 +486,7 @@
 /* MATH */
 @layer elements {
     math {
-        font-family: "Garamond-Math", "EB Garamond", serif;
+        font-family: "Garamond-Math", "EB Garamond", Garamond, serif;
     }
 
     math[display="block"] {

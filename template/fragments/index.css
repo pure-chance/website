@@ -1,0 +1,49 @@
+article {
+  margin-top: var(--space-trim);
+  margin-bottom: var(--space-trim);
+  &:last-of-type {
+    margin-bottom: var(--space-block);
+  }
+}
+
+article a {
+  display: flex;
+  align-items: baseline;
+  text-decoration: none;
+}
+
+h2 {
+  font: italic normal var(--font-size) var(--font-family-serif);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /*
+   * The very end of the last char gets clipped when the text is
+   * italic and overflow is hidden. Adding a tiny bit of padding
+   * avoids this issue.
+   */
+  padding-right: 0.05rem;
+}
+
+span.leader {
+  flex: 1;
+  border-bottom: 1px solid var(--color-rule);
+  position: relative;
+  top: -0.2rem;
+  margin: 0 var(--space-gap);
+}
+
+time {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-ui);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+#line {
+  font-size: calc(0.85 * var(--font-size));
+  color: var(--color-ink);
+  text-align: right;
+}

@@ -1,0 +1,13 @@
+.image-compare {
+  display: flex;
+}
+
+.image-compare img {
+  width: 100%;
+  height: auto;
+  padding: 0;
+}
+
+.image-compare img:not(:first-child) {
+  margin-left: 0;
+}
