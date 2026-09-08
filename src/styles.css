@@ -12,12 +12,6 @@
         margin: 0;
     }
 
-    @media (prefers-reduced-motion: no-preference) {
-        html {
-            interpolate-size: allow-keywords;
-        }
-    }
-
     body {
         line-height: 1.5;
         -webkit-font-smoothing: antialiased;
@@ -57,11 +51,6 @@
     h6 {
         text-wrap: balance;
     }
-
-    #root,
-    #__next {
-        isolation: isolate;
-    }
 }
 
 /* VARIABLES */
@@ -75,7 +64,7 @@
         --color-mark: oklch(46% 0.18 27deg);
 
         /* Layout */
-        --width: 640px;
+        --content-width: 640px;
         --indentation: 1.5em;
 
         /*
@@ -94,8 +83,8 @@
         --font-family-serif: "EB Garamond", serif;
         --font-family-mono: "Maple Mono", monospace;
         --font-size: 14pt;
-        --font-size-mono: 0.74em;
-        --font-size-mono-sm: 0.6em;
+        --font-scale-mono: 0.72em;
+        --font-scale-mono-ui: 0.6em;
 
 
         /* Footer */
@@ -156,29 +145,28 @@
 /* DOCUMENT */
 @layer base {
     body {
-        max-width: var(--width);
+        max-width: var(--content-width);
         margin: 0 auto;
         padding: 3rem var(--footer-displacement-width) calc(2rem + var(--footer-height));
+
         background-color: var(--color-paper);
         color: var(--color-ink);
-    }
-}
 
-/* PROSE */
-@layer base {
-    body {
         font-family: var(--font-family-serif);
         font-size: var(--font-size);
         text-align: justify;
         hyphens: auto;
     }
+}
 
+/* PROSE */
+@layer base {
     p + p {
         text-indent: var(--indentation);
     }
 
     h1 {
-        font-size: calc(var(--font-size) + 10pt);
+        font-size: calc(var(--font-size) + 8pt);
         line-height: 1em;
         text-align: center;
     }
@@ -193,13 +181,6 @@
         margin: var(--space-gap) 0 var(--space-gap);
     }
 
-    h4,
-    h5,
-    h6 {
-        /* Do not allow sub-+ headings. */
-        display: none;
-    }
-
     hr {
         display: block;
         width: 2.5rem;
@@ -212,23 +193,23 @@
     a {
         color: var(--color-ink);
         text-decoration: underline;
-        text-decoration-color: var(--color-ink);
         text-decoration-thickness: 1px;
         text-underline-offset: 4px;
-        transition:
-            text-decoration-color 100ms,
-            text-decoration-thickness 100ms;
 
         &:hover {
-            text-decoration-color: var(--color-ink);
             text-decoration-thickness: 2px;
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--color-ink);
+            outline-offset: 2px;
         }
     }
 }
 
 /* HEADER */
 @layer layout {
-    header#headline {
+    #headline {
         text-align: center;
     }
 
@@ -250,17 +231,17 @@
 
 /* FOOTER */
 @layer layout {
-    footer#running-footer {
+    #running-footer {
         position: fixed;
         bottom: 0;
         left: 50%;
-        width: min(var(--width), 100%);
+        width: min(var(--content-width), 100%);
         transform: translateX(-50%);
 
         display: flex;
         height: var(--footer-height);
         padding: 0 var(--footer-displacement-width);
-        gap: 1rem;
+        gap: var(--space-block);
         align-items: center;
 
         border-top: 1px solid var(--color-rule);
@@ -276,11 +257,10 @@
         }
     }
 
-
     #label,
     .ref {
         font-family: var(--font-family-mono);
-        font-size: var(--font-size-mono-sm);
+        font-size: var(--font-scale-mono-ui);
         color: var(--color-ink);
     }
 
@@ -299,7 +279,6 @@
     .ref {
         flex-shrink: 0;
         text-decoration: none;
-        margin-left: auto;
 
         & > sup {
             color: var(--color-mark);
@@ -321,12 +300,9 @@
 
     img,
     svg,
-    video,
-    pre,
-    table,
-    math[display="block"] {
-        /* Scroll for overflowing content. */
-        overflow-x: auto;
+    video {
+        /* Ensure media fits in content width. */
+        max-width: 100%;
     }
 }
 
@@ -342,16 +318,14 @@
         margin: var(--space-gap) 0;
     }
 
-    .references li::marker {
-        /* References use bracketed counters per IEEE convention. */
-        content: "[" counter(list-item) "] ";
+    li > p + p {
+        text-indent: var(--indentation);
     }
 }
 
 /* QUOTES */
 @layer elements {
     blockquote {
-        position: relative;
         padding-left: var(--space-block);
         border-left: 2px solid var(--color-rule);
     }
@@ -364,7 +338,7 @@
     kbd,
     samp {
         font-family: var(--font-family-mono);
-        font-size: var(--font-size-mono);
+        font-size: var(--font-scale-mono);
         padding: 0.08em var(--space-trim);
         border-radius: 2px;
         background: var(--color-inset);
@@ -372,11 +346,13 @@
 
     pre {
         font-family: var(--font-family-mono);
-        font-size: var(--font-size-mono);
+        font-size: var(--font-scale-mono);
 
         background-color: var(--color-inset);
         padding: var(--space-gap);
         border-radius: 2px;
+
+        overflow-x: auto;
 
         /* Reset inline styles if inside a pre. */
         & > code {
@@ -384,11 +360,6 @@
             padding: 0;
             border-radius: 0;
             background: none;
-            font-size: var(--font-size-mono);
-        }
-
-        & br {
-            margin: 0;
         }
     }
 }
@@ -401,9 +372,10 @@
      */
     figure {
         /* Add an overhanging border to each figure. */
-        --overhang: clamp(0px, calc((100vw - var(--width)) / 2), var(--space-gap));
+        --overhang: clamp(0px, calc((100vw - var(--content-width)) / 2), var(--space-gap));
         margin-left: calc(-1 * var(--overhang));
         margin-right: calc(-1 * var(--overhang));
+
         border: 1px solid var(--color-rule);
 
         counter-increment: figure;
@@ -419,7 +391,7 @@
     }
 
     figcaption {
-        padding: var(--space-gap) var(--space-gap);
+        padding: var(--space-gap);
         border-top: 1px solid var(--color-rule);
         font-size: calc(var(--font-size) - 2pt);
 
@@ -446,6 +418,7 @@
     th,
     td {
         vertical-align: baseline;
+
         padding-top: var(--space-trim);
         padding-right: var(--space-gap);
         padding-left: var(--space-gap);
@@ -473,9 +446,14 @@
 }
 
 /* MATH */
-/* IMPORTANT: Incomplete */
 @layer elements {
     math {
         font-family: "Garamond-Math", "EB Garamond", serif;
+    }
+
+    math[display="block"] {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 }
