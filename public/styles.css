@@ -1,0 +1,501 @@
+@layer reset, base, layout, elements;
+
+/* RESET */
+@layer reset {
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    * {
+        margin: 0;
+    }
+
+    body {
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    img,
+    picture,
+    video,
+    canvas,
+    svg {
+        display: block;
+        max-width: 100%;
+    }
+
+    input,
+    button,
+    textarea,
+    select {
+        font: inherit;
+    }
+
+    p,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        overflow-wrap: break-word;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        text-wrap: balance;
+    }
+}
+
+/* VARIABLES */
+@layer base {
+    :root {
+        /* Colors */
+        --color-ink: oklch(10% 0 0deg);
+        --color-paper: oklch(98% 0 0deg);
+        --color-rule: oklch(80% 0 0deg);
+        --color-inset: oklch(92% 0.004 90deg);
+        --color-mark: oklch(46% 0.18 27deg);
+
+        /* Layout */
+        --content-width: 640px;
+        --indentation: 1.5em;
+
+        /*
+         * Spacing scale. Each token is named for its typical role:
+         *   trim   — barely-there gaps between tightly related items
+         *   gap    — small separations within a component (cells, list items, captions)
+         *   block  — medium spacing between or within blocks of content
+         *   spread — larger structural spacing (heading clearance, list indent)
+         */
+        --space-trim: 0.25rem;
+        --space-gap: 0.5rem;
+        --space-block: 1rem;
+        --space-spread: 2rem;
+
+        /* Typography */
+        --font-family-serif: "EB Garamond", serif;
+        --font-family-mono: "Maple Mono", monospace;
+        --font-size: 14pt;
+        --font-scale-mono: 0.72em;
+        --font-scale-mono-ui: 0.6em;
+
+
+        /* Footer */
+        --footer-height: 2rem;
+        --footer-displacement-width: clamp(1.2rem, 20px, 2rem);
+
+        @media (max-width: 420px) {
+            --indentation: 1.2em;
+            --font-size: 13.5pt;
+        }
+    }
+}
+
+/* FONTS */
+@layer base {
+    @font-face {
+        font-family: "EB Garamond";
+        src: url("/fonts/EBGaramond/EBGaramond-Regular.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "EB Garamond";
+        src: url("/fonts/EBGaramond/EBGaramond-Bold.woff2") format("woff2");
+        font-weight: 700;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "EB Garamond";
+        src: url("/fonts/EBGaramond/EBGaramond-Italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "Maple Mono";
+        src: url("/fonts/MapleMono/MapleMono-Regular.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+        unicode-range: U+0020-007E, U+2001, U+200B, U+2010, U+2013-2014, U+2016, U+2018-2024, U+2026-2027, U+2030, U+2032-2034, U+2039-203A, U+203C-203F, U+2044-2046, U+204F, U+2070-2071, U+2074-2089, U+20A3, U+20A6, U+20A9, U+20AB-20AC, U+20B9-20BA, U+20BD, U+20BF, U+2500-259F;
+    }
+
+    @font-face {
+        font-family: "Garamond-Math";
+        src: url("/fonts/Garamond-Math/Garamond-Math.otf") format("opentype");
+        font-weight: 400 800;
+        font-style: normal;
+        font-display: swap;
+    }
+}
+
+/* DOCUMENT */
+@layer base {
+    body {
+        max-width: var(--content-width);
+        margin: 0 auto;
+        padding: 3rem var(--footer-displacement-width) calc(2rem + var(--footer-height));
+
+        background-color: var(--color-paper);
+        color: var(--color-ink);
+
+        font-family: var(--font-family-serif);
+        font-size: var(--font-size);
+        text-align: justify;
+        hyphens: auto;
+    }
+}
+
+/* PROSE */
+@layer base {
+    p + p {
+        text-indent: var(--indentation);
+    }
+
+    h1 {
+        font-size: calc(var(--font-size) + 8pt);
+        line-height: 1em;
+        text-align: center;
+    }
+
+    h2 {
+        font-size: calc(var(--font-size) + 2pt);
+        margin: var(--space-block) 0 var(--space-trim);
+    }
+
+    h3 {
+        font-size:calc(var(--font-size) + 0pt);
+        margin: var(--space-gap) 0 var(--space-gap);
+    }
+
+    hr {
+        display: block;
+        width: 2.5rem;
+        height: 1px;
+        margin: var(--space-block) auto;
+        border: none;
+        background: var(--color-rule);
+    }
+
+    a {
+        color: var(--color-ink);
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+
+        &:hover {
+            text-decoration-thickness: 2px;
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--color-ink);
+            outline-offset: 2px;
+        }
+    }
+}
+
+/* HEADER */
+@layer layout {
+    #headline {
+        text-align: center;
+    }
+
+    #subtitle {
+        line-height: 1.3;
+        color: var(--color-ink);
+        margin-top: var(--space-gap);
+    }
+
+    #headline::after {
+        content: "";
+        display: block;
+        width: 2.5rem;
+        height: 1px;
+        margin: var(--space-block) auto;
+        background: var(--color-rule);
+    }
+}
+
+/* FOOTER */
+@layer layout {
+    #running-footer {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        width: min(var(--content-width), 100%);
+        transform: translateX(-50%);
+
+        display: flex;
+        height: var(--footer-height);
+        padding: 0 var(--footer-displacement-width);
+        gap: var(--space-block);
+        align-items: center;
+
+        border-top: 1px solid var(--color-rule);
+        background: var(--color-paper);
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: -1px;
+            width: 3rem;
+            height: 2px;
+            background: var(--color-ink);
+        }
+    }
+
+    #label,
+    .ref {
+        font-family: var(--font-family-mono);
+        font-size: var(--font-scale-mono-ui);
+        color: var(--color-ink);
+    }
+
+    #label {
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        transition: opacity 500ms ease;
+
+        &.hidden {
+            opacity: 0;
+        }
+    }
+
+    .ref {
+        flex-shrink: 0;
+        text-decoration: none;
+
+        & > sup {
+            color: var(--color-mark);
+        }
+    }
+}
+
+/* COMMON ELEMENT STYLES */
+@layer elements {
+    blockquote,
+    pre,
+    img,
+    table,
+    figure,
+    math[display="block"] {
+        /* Shared vertical space between prose and flow-breaking elements. */
+        margin: var(--space-block) 0;
+    }
+
+    img,
+    svg,
+    video {
+        /* Ensure media fits in content width. */
+        min-width: 0;
+        max-width: 100%;
+    }
+}
+
+/* LISTS */
+@layer elements {
+    ol,
+    ul {
+        padding-left: var(--space-spread);
+    }
+
+    ol li,
+    ul li {
+        margin: var(--space-gap) 0;
+    }
+
+    li > p + p {
+        text-indent: var(--indentation);
+    }
+
+    .references li::marker {
+        /* References use bracketed counters per IEEE convention. */
+        content: "[" counter(list-item) "] ";
+    }
+}
+
+/* QUOTES */
+@layer elements {
+    blockquote {
+        padding-left: var(--space-block);
+        border-left: 2px solid var(--color-rule);
+    }
+}
+
+/* CODE & PRE-FORMATTED TEXT */
+@layer elements {
+    code,
+    kbd,
+    samp {
+        font-family: var(--font-family-mono);
+        font-size: var(--font-scale-mono);
+        padding: 0.08em var(--space-trim);
+        border-radius: 2px;
+        background: var(--color-inset);
+    }
+
+    pre {
+        font-family: var(--font-family-mono);
+        font-size: var(--font-scale-mono);
+
+        background-color: var(--color-inset);
+        padding: var(--space-gap);
+        border-radius: 2px;
+
+        overflow-x: auto;
+
+        /* Reset inline styles if inside a pre. */
+        & > code {
+            font: inherit;
+            padding: 0;
+            border-radius: 0;
+            background: none;
+        }
+    }
+}
+
+/* FIGURES */
+@layer elements {
+    figure {
+        /* Add an overhanging border to each figure. */
+        --overhang: clamp(0px, calc((100vw - var(--content-width)) / 2), var(--space-gap));
+        margin-left: calc(-1 * var(--overhang));
+        margin-right: calc(-1 * var(--overhang));
+
+        border: 1px solid var(--color-rule);
+        border-radius: 2px;
+    }
+
+    figure img,
+    figure svg,
+    figure video,
+    figure table,
+    figure pre,
+    figure math[display="block"] {
+        display: block;
+        margin: var(--space-gap);
+        max-width: calc(100% - 2 * var(--space-gap));
+        border-radius: 2px;
+    }
+
+    /* Tables are centered. */
+    figure table {
+        margin-left: auto;
+        margin-right: auto;
+        overflow-x: auto;
+    }
+
+    figure:not(.code, .table):has(figcaption) {
+        counter-increment: figure
+    }
+    figure.code:has(figcaption) {
+        counter-increment: listing;
+    }
+    figure.table:has(figcaption) {
+        counter-increment: table;
+    }
+
+    figcaption {
+        padding: var(--space-gap);
+        border-top: 1px solid var(--color-rule);
+        font-size: calc(var(--font-size) - 2pt);
+    }
+
+    figure:not(.code, .table) figcaption::before {
+        content: "Fig." counter(figure) ": ";
+        font-weight: bold;
+    }
+    figure.code figcaption::before {
+        content: "Lst." counter(listing) ": ";
+        font-weight: bold;
+    }
+    figure.table figcaption::before {
+        content: "Tbl." counter(table) ": ";
+        font-weight: bold;
+    }
+}
+
+/* TABLES */
+@layer elements {
+    table {
+        width: max-content;
+        border-collapse: collapse;
+        line-height: 1.4;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    th,
+    td {
+        vertical-align: baseline;
+
+        padding-top: var(--space-trim);
+        padding-right: 0;
+        padding-left: var(--space-block);
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    th:first-child,
+    td:first-child {
+        padding-left: 0;
+    }
+
+    thead th {
+        padding-bottom: 0.3rem;
+        border-bottom: 2px solid var(--color-ink);
+        font-weight: bold;
+        text-align: left;
+    }
+
+    tbody td {
+        padding-bottom: var(--space-trim);
+    }
+
+    tfoot {
+        border-top: 1px solid var(--color-ink);
+    }
+
+    tfoot th,
+    tfoot td {
+        padding-bottom: 0;
+    }
+
+    th.numeric,
+    td.numeric {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+/* MATH */
+@layer elements {
+    math {
+        font-family: "Garamond-Math", "EB Garamond", serif;
+    }
+
+    math[display="block"] {
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+}
