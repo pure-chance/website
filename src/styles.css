@@ -377,17 +377,38 @@
         margin-right: calc(-1 * var(--overhang));
 
         border: 1px solid var(--color-rule);
-
-        counter-increment: figure;
         border-radius: 2px;
     }
 
     figure img,
+    figure svg,
+    figure video,
+    figure table,
     figure pre,
-    figure table {
+    figure math[display="block"] {
         margin: var(--space-gap);
         max-width: calc(100% - 2 * var(--space-gap));
         border-radius: 2px;
+    }
+
+    /* Tables are centered. */
+    figure table {
+        margin-left: auto;
+        margin-right: auto;
+        overflow-x: auto;
+    }
+
+    figure:not(.code, .table, .eq):has(figcaption) {
+        counter-increment: figure
+    }
+    figure.code:has(figcaption) {
+        counter-increment: listing;
+    }
+    figure.table:has(figcaption) {
+        counter-increment: table;
+    }
+    figure.eq:has(figcaption) {
+        counter-increment: equation;
     }
 
     figcaption {
@@ -395,10 +416,21 @@
         border-top: 1px solid var(--color-rule);
         font-size: calc(var(--font-size) - 2pt);
 
-        &::before {
-            content: "Fig." counter(figure) ":";
-            font-weight: bold;
-        }
+    figure:not(.code, .table, .eq) figcaption::before {
+        content: "Fig." counter(figure) ": ";
+        font-weight: bold;
+    }
+    figure.code figcaption::before {
+        content: "Lst." counter(listing) ": ";
+        font-weight: bold;
+    }
+    figure.table figcaption::before {
+        content: "Tbl." counter(table) ": ";
+        font-weight: bold;
+    }
+    figure.eq figcaption::before {
+        content: "Eq." counter(equation) ": ";
+        font-weight: bold;
     }
 }
 
